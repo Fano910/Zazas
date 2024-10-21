@@ -1,0 +1,8 @@
+/build
+/Data
+/dist
+*.fno
+*.png
+*.jpg
+*.class
+*.form
