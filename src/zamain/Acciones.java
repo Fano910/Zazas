@@ -354,8 +354,7 @@ public class Acciones {
         };
     }
 
-    public static void setNewLocation(javax.swing.JLabel Canica, int OldX, int OldY, int NewX, int NewY, int Velocidad) {
-//        Thread movementThread = new Thread(() -> {
+    public static void setNewLocation(javax.swing.JLabel Canica, int OldX, int OldY, int NewX, int NewY, int Velocidad, java.util.concurrent.CountDownLatch Latch) {
         // Diferencias entre las coordenadas
         int dx = Math.abs(NewX - OldX);
         int dy = Math.abs(NewY - OldY);
@@ -394,8 +393,7 @@ public class Acciones {
         }
         // Establecer la posición final
         Canica.setLocation(NewX, NewY);
-//        });
-//        movementThread.start();
+        Latch.countDown();
     }
 
     /**

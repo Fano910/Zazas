@@ -21,6 +21,21 @@ public class Tableros extends javax.swing.JPanel {
     private final int numMaxJugadores = 4, numJugadores;
     private final JLabel[] labelArray = new JLabel[20];
     private final Point[] points = new Point[]{
+        new Point(643, 286), // 41. INICIA AZUL
+        new Point(643, 241),
+        new Point(501, 241),
+        new Point(558, 241),
+        new Point(514, 241),
+        new Point(470, 241),
+        new Point(427, 241),
+        new Point(427, 194),
+        new Point(427, 150),
+        new Point(427, 109),
+        new Point(427, 68),
+        new Point(427, 19),
+        new Point(385, 19),
+        new Point(335, 19),
+        new Point(293, 19), // 55. TERMINA AZUL
         new Point(242, 19), // 0. INICIA NEGRO
         new Point(242, 68),
         new Point(242, 109),
@@ -62,21 +77,6 @@ public class Tableros extends javax.swing.JPanel {
         new Point(643, 419),
         new Point(643, 366),
         new Point(643, 330), // 40. TERMINA ROJO
-        new Point(643, 286), // 41. INICIA AZUL
-        new Point(643, 241),
-        new Point(501, 241),
-        new Point(558, 241),
-        new Point(514, 241),
-        new Point(470, 241),
-        new Point(427, 241),
-        new Point(427, 194),
-        new Point(427, 150),
-        new Point(427, 109),
-        new Point(427, 68),
-        new Point(427, 19),
-        new Point(385, 19),
-        new Point(335, 19),
-        new Point(293, 19), // 55. TERMINA AZUL
         new Point(335, 68), // 56. FINALIZA NEGRO
         new Point(335, 109),
         new Point(335, 152),
@@ -218,7 +218,7 @@ public class Tableros extends javax.swing.JPanel {
                         return;
                     }
                     if ((int) labelArray[index].getClientProperty("Place") > -1 || tiroDado == 1 || tiroDado == 6) {
-                        marbleMouseClicked(index);
+                        marbleMouseClicked(index); // Mover todos los if's al metodo marbleMouseClicked
                     } else {
                         Acciones.mostrarTextoTemporal("No puedes salir del área segura con: " + tiroDado, 3000, Acciones.rojo);
                     }
@@ -234,7 +234,7 @@ public class Tableros extends javax.swing.JPanel {
             labelArray[j].putClientProperty("Place", -1); // Menor uso de memoria y acceso simplificado
             labelArray[j].putClientProperty("Ubiety", points[j + 77]);
             labelArray[j].putClientProperty("Player", jugador);
-
+            labelArray[j].putClientProperty("Positions", jugador * 14);
         }
     }
 
@@ -276,19 +276,28 @@ public class Tableros extends javax.swing.JPanel {
     }
 
     private void marbleMouseClicked(int Index) {
-        if (!isMoving) { // Condicion: Si una canica se esta moviendo, no puede iniciar.
+        if (isMoving) { // Condicion: Si una canica se esta moviendo, no puede iniciar.
+            return;
+        }
+        CountDownLatch latch = new CountDownLatch(1);
+        Thread movementThread = new Thread(() -> {
             isMoving = true;
-            // DEBES CONTINUAL AQUI, BUSCANDO LA FORMA DE MOVER LA CANICA SELECCIONADA, LAS POSICIONES QUE MARCA 'tiroDado'
             System.out.println("La canica se movera " + tiroDado + " posiciones.\nA la posicion " + obtenerNumero(0, 0, -1, tiroDado));
-//            Acciones.setNewLocation(labelArray[Index], labelArray[Index].getX(), labelArray[Index].getY(), points[randomValue].x, points[randomValue].y, 5);
+            // DEBES CONTINUAL AQUI, BUSCANDO LA FORMA DE MOVER LA CANICA SELECCIONADA, LAS POSICIONES QUE MARCA 'tiroDado'
+            //int randomValue = Acciones.getRand(0, 97);
+            int value = 1 + (int) labelArray[Index].getClientProperty("Place") + tiroDado + (int) labelArray[Index].getClientProperty("Positions");
+            System.out.println("1 + Place=" + (int) labelArray[Index].getClientProperty("Place") + ", tiroDado=" + tiroDado + ", Positions=" + (int) labelArray[Index].getClientProperty("Positions"));
+            Acciones.setNewLocation(labelArray[Index], labelArray[Index].getX(), labelArray[Index].getY(), points[value].x, points[value].y, 5, latch);
+            try {
+                latch.await();
+            } catch (InterruptedException ex) {
+                System.out.println("ERR=marbleMouseClicked");
+            }
             isMoving = false;
             semaphore.release();
-        }
-//        int randomValue = Acciones.getRand(0, 97);
-//        Thread movement = new Thread(() -> {
-//        });
-//        movement.start();
-        //System.out.println("posicion[" + i + "]=" + posiciones[i]);
+            //System.out.println("posicion[" + i + "]=" + posiciones[i]);
+        });
+        movementThread.start();
     }
 
     /**
