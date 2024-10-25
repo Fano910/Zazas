@@ -393,7 +393,9 @@ public class Acciones {
         }
         // Establecer la posición final
         Canica.setLocation(NewX, NewY);
-        Latch.countDown();
+        if (Latch != null) {
+            Latch.countDown();
+        }
     }
 
     /**
@@ -630,6 +632,27 @@ public class Acciones {
     public static int getRand(int Inicio, int Final) {
         java.util.Random rand = new java.util.Random();
         return rand.nextInt(Inicio, Final);
+    }
+
+    /**
+     * Por ejemplo: {valIni = 0, valFin = 4}. El valor sera entre 0 y 3
+     *
+     * @param Inicio
+     * @param Final
+     * @param Type
+     * @return
+     */
+    public static int getRand(int Inicio, int Final, char Type) {
+        return switch (Type) {
+            case 'R' ->
+                new java.util.Random().nextInt(Inicio, Final);
+            case 'T' ->
+                java.util.concurrent.ThreadLocalRandom.current().nextInt(Inicio, Final);
+            case 'S' ->
+                new java.security.SecureRandom().nextInt(Inicio, Final);
+            default ->
+                0;
+        };
     }
 
     /**
