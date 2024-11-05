@@ -41,6 +41,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import static zafno.data.RAIZ;
 
 /**
  *
@@ -50,7 +51,6 @@ public class Acciones {
 
     private static final String SECRET_KEY = "mysecretkey16129";
     private static final String ALGORITHM = "AES";
-    protected static final String rutaRaiz = ".\\Data\\";
 //    private static SerialPort[] portList;
 
     public static String encrypt(String data) {
@@ -114,40 +114,40 @@ public class Acciones {
 
     public static final java.awt.Cursor handCursor = new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR);
 
-//    public static final ImageIcon iconCCRF = new ImageIcon(rutaRaiz + "");
-//    public static final ImageIcon iconF1 = new ImageIcon(rutaRaiz + "");
-//    public static final ImageIcon iconF2 = new ImageIcon(rutaRaiz + "");
-    public static final ImageIcon iconServer = new ImageIcon(rutaRaiz + "Images\\Server.png"); // Icono servidor
-    public static final ImageIcon iconClient = new ImageIcon(rutaRaiz + "Images\\Client.png"); // Icono cliente
-    public static final ImageIcon iconTab_1 = new ImageIcon(rutaRaiz + "Images\\Tablero_1.png"); // Icono Tablero 1
-    public static final ImageIcon iconFondo = new ImageIcon(rutaRaiz + "Images\\Fondo1.jpg"); // Icono Tablero 1
-    public static final ImageIcon iconCancel = new ImageIcon(rutaRaiz + "Images\\cancel.png");
-    public static final ImageIcon iconCanicaNegra = new ImageIcon(rutaRaiz + "Images\\Marble\\Black.png");
-    public static final ImageIcon iconCanicaAzul = new ImageIcon(rutaRaiz + "Images\\Marble\\Blue.png");
-    public static final ImageIcon iconCanicaCafe = new ImageIcon(rutaRaiz + "Images\\Marble\\Brown.png");
-    public static final ImageIcon iconCanicaGuinda = new ImageIcon(rutaRaiz + "Images\\Marble\\Cherry.png");
-    public static final ImageIcon iconCanicaDorada = new ImageIcon(rutaRaiz + "Images\\Marble\\Gold.png");
-    public static final ImageIcon iconCanicaVerde = new ImageIcon(rutaRaiz + "Images\\Marble\\Green.png");
-    public static final ImageIcon iconCanicaMexico = new ImageIcon(rutaRaiz + "Images\\Marble\\Mexico.png");
-    public static final ImageIcon iconCanicaNaranja = new ImageIcon(rutaRaiz + "Images\\Marble\\Orange.png");
-    public static final ImageIcon iconCanicaRosa = new ImageIcon(rutaRaiz + "Images\\Marble\\Pink.png");
-    public static final ImageIcon iconCanicaMorada = new ImageIcon(rutaRaiz + "Images\\Marble\\Purple.png");
-    public static final ImageIcon iconCanicaRoja = new ImageIcon(rutaRaiz + "Images\\Marble\\Red.png");
-    public static final ImageIcon iconCanicaPlateada = new ImageIcon(rutaRaiz + "Images\\Marble\\Silver.png");
-    public static final ImageIcon iconCanicaTurquesa = new ImageIcon(rutaRaiz + "Images\\Marble\\Turquoise.png");
-    public static final ImageIcon iconCanicaVino = new ImageIcon(rutaRaiz + "Images\\Marble\\Wine.png");
-    public static final ImageIcon iconCanicaAmarilla = new ImageIcon(rutaRaiz + "Images\\Marble\\Yellow.png");
-    public static final ImageIcon iconDices = new ImageIcon(rutaRaiz + "Images\\Dice\\Dices.png");
-    private static final ImageIcon iconDice1 = new ImageIcon(rutaRaiz + "Images\\Dice\\1_1.png");
-    private static final ImageIcon iconDice2 = new ImageIcon(rutaRaiz + "Images\\Dice\\1_2.png");
-    private static final ImageIcon iconDice3 = new ImageIcon(rutaRaiz + "Images\\Dice\\1_3.png");
-    private static final ImageIcon iconDice4 = new ImageIcon(rutaRaiz + "Images\\Dice\\1_4.png");
-    private static final ImageIcon iconDice5 = new ImageIcon(rutaRaiz + "Images\\Dice\\1_5.png");
-    private static final ImageIcon iconDice6 = new ImageIcon(rutaRaiz + "Images\\Dice\\1_6.png");
-    public static final ImageIcon iconF1 = new ImageIcon(rutaRaiz + "Images\\F1.png");
-    public static final ImageIcon iconF2 = new ImageIcon(rutaRaiz + "Images\\F2.png");
-    public static final ImageIcon iconCtrl = new ImageIcon(rutaRaiz + "Images\\ctrl.png");
-    public static final ImageIcon iconCtrl_1 = new ImageIcon(rutaRaiz + "Images\\ctrl1.png");
+//    public static final ImageIcon iconCCRF = new ImageIcon(RAIZ.get() + "");
+//    public static final ImageIcon iconF1 = new ImageIcon(RAIZ.get() + "");
+//    public static final ImageIcon iconF2 = new ImageIcon(RAIZ.get() + "");
+    public static final ImageIcon iconServer = new ImageIcon(RAIZ.get() + "Images\\Server.png"); // Icono servidor
+    public static final ImageIcon iconClient = new ImageIcon(RAIZ.get() + "Images\\Client.png"); // Icono cliente
+    public static final ImageIcon iconTab_1 = new ImageIcon(RAIZ.get() + "Images\\Tablero_1.png"); // Icono Tablero 1
+    public static final ImageIcon iconFondo = new ImageIcon(RAIZ.get() + "Images\\Fondo1.jpg"); // Icono Tablero 1
+    public static final ImageIcon iconCancel = new ImageIcon(RAIZ.get() + "Images\\cancel.png");
+    public static final ImageIcon iconCanicaNegra = new ImageIcon(RAIZ.get() + "Images\\Marble\\Black.png");
+    public static final ImageIcon iconCanicaAzul = new ImageIcon(RAIZ.get() + "Images\\Marble\\Blue.png");
+    public static final ImageIcon iconCanicaCafe = new ImageIcon(RAIZ.get() + "Images\\Marble\\Brown.png");
+    public static final ImageIcon iconCanicaGuinda = new ImageIcon(RAIZ.get() + "Images\\Marble\\Cherry.png");
+    public static final ImageIcon iconCanicaDorada = new ImageIcon(RAIZ.get() + "Images\\Marble\\Gold.png");
+    public static final ImageIcon iconCanicaVerde = new ImageIcon(RAIZ.get() + "Images\\Marble\\Green.png");
+    public static final ImageIcon iconCanicaMexico = new ImageIcon(RAIZ.get() + "Images\\Marble\\Mexico.png");
+    public static final ImageIcon iconCanicaNaranja = new ImageIcon(RAIZ.get() + "Images\\Marble\\Orange.png");
+    public static final ImageIcon iconCanicaRosa = new ImageIcon(RAIZ.get() + "Images\\Marble\\Pink.png");
+    public static final ImageIcon iconCanicaMorada = new ImageIcon(RAIZ.get() + "Images\\Marble\\Purple.png");
+    public static final ImageIcon iconCanicaRoja = new ImageIcon(RAIZ.get() + "Images\\Marble\\Red.png");
+    public static final ImageIcon iconCanicaPlateada = new ImageIcon(RAIZ.get() + "Images\\Marble\\Silver.png");
+    public static final ImageIcon iconCanicaTurquesa = new ImageIcon(RAIZ.get() + "Images\\Marble\\Turquoise.png");
+    public static final ImageIcon iconCanicaVino = new ImageIcon(RAIZ.get() + "Images\\Marble\\Wine.png");
+    public static final ImageIcon iconCanicaAmarilla = new ImageIcon(RAIZ.get() + "Images\\Marble\\Yellow.png");
+    public static final ImageIcon iconDices = new ImageIcon(RAIZ.get() + "Images\\Dice\\Dices.png");
+    private static final ImageIcon iconDice1 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_1.png");
+    private static final ImageIcon iconDice2 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_2.png");
+    private static final ImageIcon iconDice3 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_3.png");
+    private static final ImageIcon iconDice4 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_4.png");
+    private static final ImageIcon iconDice5 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_5.png");
+    private static final ImageIcon iconDice6 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_6.png");
+    public static final ImageIcon iconF1 = new ImageIcon(RAIZ.get() + "Images\\F1.png");
+    public static final ImageIcon iconF2 = new ImageIcon(RAIZ.get() + "Images\\F2.png");
+    public static final ImageIcon iconCtrl = new ImageIcon(RAIZ.get() + "Images\\ctrl.png");
+    public static final ImageIcon iconCtrl_1 = new ImageIcon(RAIZ.get() + "Images\\ctrl1.png");
 
     public static int dayOfTurn;
     public static String horaInicio;
@@ -258,7 +258,7 @@ public class Acciones {
     }
 
     public static void setScaledIcon(String Nombre, int W, int H, javax.swing.JLabel Label) {
-        ImageIcon imgICON = new ImageIcon(rutaRaiz + "Images\\" + Nombre);
+        ImageIcon imgICON = new ImageIcon(RAIZ.get() + "Images\\" + Nombre);
         java.awt.Image imageICON = imgICON.getImage();
         java.awt.Image scaledImageICON = imageICON.getScaledInstance(W, H, java.awt.Image.SCALE_SMOOTH);
         ImageIcon scaledIconICON = new ImageIcon(scaledImageICON);
@@ -404,12 +404,7 @@ public class Acciones {
      * @return Array of words on the File
      */
     public static java.util.ArrayList<String> readFile(String Path) {
-        String fichero = ".\\Data\\";
-        if (Path == null) {
-            fichero += "data.fno";
-        } else {
-            fichero += "Fno\\" + Path + ".fno";
-        }
+        String fichero = ".\\Data\\" + Path == null ? "data.fno" : ("Fno\\" + Path + ".fno");
         java.util.ArrayList<String> palabras = new java.util.ArrayList<>();
         File archivo = new File(fichero);
         try (BufferedReader entrada = new BufferedReader(new FileReader(archivo));) {
@@ -627,7 +622,7 @@ public class Acciones {
      *
      * @param Inicio
      * @param Final
-     * @return
+     * @return Random simple en un intervalo.
      */
     public static int getRand(int Inicio, int Final) {
         java.util.Random rand = new java.util.Random();
@@ -635,12 +630,31 @@ public class Acciones {
     }
 
     /**
-     * Por ejemplo: {valIni = 0, valFin = 4}. El valor sera entre 0 y 3
+     * Por ejemplo: {valIni = 0, valFin = 4}. El valor sera entre 0 y 3 per no
+     * devolvera el parametro final
+     *
+     * @param Inicio
+     * @param Final
+     * @param Exclude
+     * @return Random simple en un intervalo, excluyendo un numero.
+     */
+    public static int getRand(int Inicio, int Final, int Exclude) {
+        int rand;
+        do {
+            rand = getRand(Inicio, Final);
+        } while (rand == Exclude);
+        return rand;
+    }
+
+    /**
+     * Por ejemplo: {valIni = 0, valFin = 4}. El valor sera entre 0 y 3 Los
+     * valores posibles son: 'R'=Random, 'T'=ThreadLocalRandom,
+     * 'S'=SecureRandom.
      *
      * @param Inicio
      * @param Final
      * @param Type
-     * @return
+     * @return Random multiple en un intervalo.
      */
     public static int getRand(int Inicio, int Final, char Type) {
         return switch (Type) {
@@ -651,25 +665,55 @@ public class Acciones {
             case 'S' ->
                 new java.security.SecureRandom().nextInt(Inicio, Final);
             default ->
-                0;
+                1;
         };
     }
 
     /**
-     * Por ejemplo: {valIni = 0, valFin = 4}. El valor sera entre 0 y 3 per no
-     * devolvera el parametro final
+     * Por ejemplo: {valIni = 0, valFin = 4}. El valor sera entre 0 y 3 Los
+     * valores posibles son: 'R'=Random, 'T'=ThreadLocalRandom,
+     * 'S'=SecureRandom.
      *
      * @param Inicio
      * @param Final
+     * @param Type
      * @param Exclude
-     * @return
+     * @return Random multiple en un intervalo, excluyendo un numero.
      */
-    public static int getRand(int Inicio, int Final, int Exclude) {
+    public static int getRand(int Inicio, int Final, char Type, int Exclude) {
         int rand;
         do {
-            rand = getRand(Inicio, Final);
+            rand = getRand(Inicio, Final, Type);
         } while (rand == Exclude);
         return rand;
     }
 
+    /**
+     * Por ejemplo: {valIni = 0, valFin = 4}. El valor sera entre 0 y 3 Los
+     * valores posibles son: 'R'=Random, 'T'=ThreadLocalRandom,
+     * 'S'=SecureRandom.
+     *
+     * @param Inicio
+     * @param Final
+     * @param Type
+     * @param Exclude
+     * @return Random multiple en un intervalo, excluyendo un Arreglo de numeros
+     * numero.
+     */
+    public static int getRand(int Inicio, int Final, char Type, int[] Exclude) {
+        int rand;
+        do {
+            rand = getRand(Inicio, Final, Type);
+        } while (contains(Exclude, rand));
+        return rand;
+    }
+
+    private static boolean contains(int[] array, int value) {
+        for (int i : array) {
+            if (i == value) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

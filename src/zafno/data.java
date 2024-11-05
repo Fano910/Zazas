@@ -56,6 +56,12 @@ public enum data {
         public String get() {
             return "No puedes salir del área segura con: ";
         }
+    },
+    RAIZ {
+        @Override
+        public String get() {
+            return ".\\Data\\";
+        }
     };
 
     public String get() {

@@ -230,6 +230,8 @@ public class Tableros extends javax.swing.JPanel {
 
     /**
      * Este es el metodo principal, se activa al presionar el boton: 'btnDado'.
+     * 
+     * @param numJugadores
      */
     private void startMarble(int numJugadores) {
         btnDado.setEnabled(false);
@@ -324,10 +326,12 @@ public class Tableros extends javax.swing.JPanel {
      * @return Numero de posiciones que podra avanzar.
      */
     private int startIconTransition(JLabel Label, int Delay, CountDownLatch latch) {
-        int dev = Acciones.getRand(1, 7);  // Último ícono fijo
+        int dev = Acciones.getRand(1, 7, 'T'); // Último ícono fijo
+        int one = Acciones.getRand(1, 7, 'R', dev);
+        int two = Acciones.getRand(1, 7, 'S', new int[]{dev, one});
         Icon[] icons = new Icon[]{
-            Label.getIcon(), Acciones.getIconAt(Acciones.getRand(1, 7, dev)),
-            Acciones.getIconAt(Acciones.getRand(1, 7, dev)), Acciones.getIconAt(dev)
+            Label.getIcon(), Acciones.getIconAt(one),
+            Acciones.getIconAt(two), Acciones.getIconAt(dev)
         };
 
         timer = new Timer(Delay, new ActionListener() { // Este timer se ejecuta en paralelo, 120 veces
@@ -372,7 +376,7 @@ public class Tableros extends javax.swing.JPanel {
      * del usuario, al mismo tiempo el boton 'btnDado' se bloquea hasta que
      * termine toda la ejecución del metodo.
      *
-     * @return
+     * @return Booleano que representa si hubo canicas que se pudieron mover.
      */
     private boolean canContinue(boolean IsIA) {
         boolean can = false;
@@ -381,7 +385,7 @@ public class Tableros extends javax.swing.JPanel {
             can = true;
         }
         for (int i = (5 * turno) - 5; i < (5 * turno); i++) {
-            if ((int) labelArray[i].getClientProperty(PLACE) > -1 || can) {
+            if (can || (int) labelArray[i].getClientProperty(PLACE) > -1) {
                 can = true;
                 labelArray[i].setBorder(IsIA ? Acciones.bordeLineaRoja : Acciones.bordeLineaAzul);
             }
