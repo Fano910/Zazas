@@ -9,8 +9,11 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 import static zafno.Zazas.btnDado;
-import static zafno.data.*;
+import static zafno.Data.*;
+import static zafno.Data.ALERTS.*;
+import static zafno.Data.MARBLE.*;
 import zamain.Acciones;
+import zamain.Creator;
 
 /**
  *
@@ -21,108 +24,10 @@ public class Tableros extends javax.swing.JPanel {
     private int h = 690, turno = 1, tiroDado = 0;
     private final int numMaxJugadores = 4;
     private final JLabel[] labelArray = new JLabel[20];
-    private final Point[] points = new Point[]{
-        new Point(242, 19), // 0. INICIA NEGRO
-        new Point(242, 68),
-        new Point(242, 109),
-        new Point(242, 153),
-        new Point(242, 192),
-        new Point(242, 241),
-        new Point(195, 241),
-        new Point(149, 241),
-        new Point(104, 241),
-        new Point(63, 241),
-        new Point(21, 241),
-        new Point(21, 287),
-        new Point(21, 329), // 12. TERMINA NEGRO
-        new Point(21, 374), // 13. INICIA AMARILLO
-        new Point(21, 418),
-        new Point(61, 418),
-        new Point(105, 418),
-        new Point(149, 418),
-        new Point(195, 418),
-        new Point(242, 418),
-        new Point(242, 468),
-        new Point(242, 514),
-        new Point(242, 555),
-        new Point(242, 605),
-        new Point(242, 652),
-        new Point(290, 652),
-        new Point(335, 652), // 26. TERMINA AMARILLO
-        new Point(385, 652), // 27. INICIA ROJO
-        new Point(427, 652),
-        new Point(427, 606),
-        new Point(427, 556),
-        new Point(427, 514),
-        new Point(427, 469),
-        new Point(427, 419),
-        new Point(470, 419),
-        new Point(514, 419),
-        new Point(558, 419),
-        new Point(601, 419),
-        new Point(643, 419),
-        new Point(643, 366),
-        new Point(643, 330), // 40. TERMINA ROJO
-        new Point(643, 286), // 41. INICIA AZUL
-        new Point(643, 241),
-        new Point(501, 241),
-        new Point(558, 241),
-        new Point(514, 241),
-        new Point(470, 241),
-        new Point(427, 241),
-        new Point(427, 194),
-        new Point(427, 150),
-        new Point(427, 109),
-        new Point(427, 68),
-        new Point(427, 19),
-        new Point(385, 19),
-        new Point(335, 19),
-        new Point(293, 19), // 55. TERMINA AZUL
-        new Point(335, 68), // 56. FINALIZA NEGRO
-        new Point(335, 109),
-        new Point(335, 152),
-        new Point(335, 194),
-        new Point(335, 241),
-        new Point(61, 330), // 61. FINALIZA AMARILLO
-        new Point(105, 330),
-        new Point(149, 330),
-        new Point(195, 330),
-        new Point(242, 330),
-        new Point(335, 605), // 66. FINALIZA ROJO
-        new Point(335, 556),
-        new Point(335, 514),
-        new Point(335, 468),
-        new Point(335, 418),
-        new Point(601, 330), // 71. FINALIZA AZUL
-        new Point(558, 330),
-        new Point(514, 330),
-        new Point(470, 330),
-        new Point(427, 330),
-        new Point(335, 330), // 76. CENTRO
-        new Point(80, 0), // GUARDA Jugador 1 (Posición 77).
-        new Point(40, 0),
-        new Point(0, 0),
-        new Point(0, 40),
-        new Point(40, 40),
-        new Point(0, 578), // GUARDA Jugador 2 (Posición 82).
-        new Point(0, 618),
-        new Point(0, 658),
-        new Point(40, 658),
-        new Point(40, 618),
-        new Point(578, 658), // GUARDA Jugador 3 (Posición 87).
-        new Point(618, 658),
-        new Point(658, 658),
-        new Point(658, 618),
-        new Point(618, 618),
-        new Point(658, 80), // GUARDA Jugador 4 (Pocisión 92).
-        new Point(658, 40),
-        new Point(658, 0),
-        new Point(618, 0),
-        new Point(618, 40)
-    };
     private Timer timer;
     private final Semaphore semaphore = new Semaphore(0); // Inicializa el Semaphore sin permisos disponibles
-    private boolean isMoving = false;
+    protected static boolean isMoving = false;
+    private static final short[][] puntos = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
 
     /**
      * Creates new form Tableros
@@ -130,8 +35,9 @@ public class Tableros extends javax.swing.JPanel {
      * @param NumJugadores
      * @param Colores
      * @param Padre
+     * @param Modal
      */
-    public Tableros(int NumJugadores, String Colores, Zazas Padre) {
+    public Tableros(int NumJugadores, String Colores, Zazas Padre, Creator Modal) {
         initComponents();
         setIcons(Colores);
         Padre.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -141,7 +47,16 @@ public class Tableros extends javax.swing.JPanel {
             }
         });
         Zazas.btnDado.addActionListener((java.awt.event.ActionEvent evt) -> {
+            Padre.showAlerts(turno - 1, APOYO);
+            if (Acciones.getRand(0, Padre.dificultad) == 1) {
+                Creator.txtMask.setVisible(true);
+                Show smsS = new Show(Modal, this);
+                smsS.setVisible(true);
+                Creator.txtMask.setVisible(false);
+            }
+            Padre.showAlerts(turno - 1, CONSECUENCIA);
             startMarble(NumJugadores);
+            Padre.showAlerts(turno, FALLA);
         });
     }
 
@@ -213,18 +128,13 @@ public class Tableros extends javax.swing.JPanel {
                 }
             });
             add(labelArray[j], j);
-            labelArray[j].setBounds(points[j + 77].x, points[j + 77].y, 35, 35);
+            labelArray[j].setBounds(POINT.at(j + 77).x, POINT.at(j + 77).y, 35, 35);
             labelArray[j].setName(jugador + "");
-//            Marble data = new Marble(); // Mayor velodidad si se accede al mismo tiempo.
-//            data.setPlace(-1);
-//            data.setUbiety(points[j + 77]);
-//            data.setPlayer(jugador);
-//            labelArray[j].putClientProperty("data", data);
             labelArray[j].putClientProperty(PLACE, -1); // Menor uso de memoria y acceso simplificado
-            labelArray[j].putClientProperty(UBIETY, points[j + 77]);
+            labelArray[j].putClientProperty(UBIETY, POINT.at(j + 77));
             labelArray[j].putClientProperty(PLAYER, jugador);
             labelArray[j].putClientProperty(POSITIONS, (jugador - 1) * 14);
-            labelArray[j].putClientProperty(ORIGINAL, points[j + 77]);
+            labelArray[j].putClientProperty(ORIGINAL, POINT.at(j + 77));
         }
     }
 
@@ -245,7 +155,7 @@ public class Tableros extends javax.swing.JPanel {
             }
             if (!canContinue(false)) {
                 tiroDado = 0;
-                Acciones.mostrarTextoTemporal(CANOT_MOVE.get(), 3500, Acciones.azulNormal);
+                Acciones.mostrarTextoTemporal(CANNOT_MOVE.toString(), 3500, Acciones.azulNormal);
             }
             //System.out.print("El turno es de: " + turno + " of: " + numJugadores + " is: " + tiroDado);
 //            if ((turno + 1) > numJugadores) { // Si el siguiente jugador no existe, toma el control el sistema.
@@ -264,22 +174,34 @@ public class Tableros extends javax.swing.JPanel {
 //            }
             turno = (turno < numMaxJugadores) ? turno + 1 : 1;
             btnDado.setIcon(Acciones.getIconOfTurno(Zazas.colores.charAt(turno)));
+            Zazas.lblPuntos.setIcon(Acciones.getIconOfTurno(Zazas.colores.charAt(turno)));
+            setPoints(0);
         });
         moveThread.start();
     }
 
+    protected void setPoints(int Suma) {
+        puntos[0][turno - 1] += Suma;
+        Acciones.animateTransition(Zazas.lblPuntos, "" + puntos[0][turno - 1]);
+//        System.out.println("puntosDeepToS" + java.util.Arrays.deepToString(puntos));
+    }
+
+    protected void plus(int Deep, int Suma) {
+        puntos[Deep][turno - 1] += Suma;
+    }
+
     private void marbleMouseClicked(int Index, int Gamer) {
         if (tiroDado <= 0) {
-            Acciones.mostrarTextoTemporal(MOVE_DICE.get(), 3500, Acciones.rojo);
+            Acciones.mostrarTextoTemporal(MOVE_DICE.toString(), 3500, Acciones.rojo);
             return;
         }
         if (turno != Gamer) {
-            Acciones.mostrarTextoTemporal(NOT_OWNER_MARBLE.get(), 3500, Acciones.rojo);
+            Acciones.mostrarTextoTemporal(NOT_OWNER_MARBLE.toString(), 3500, Acciones.rojo);
             return;
         }
         if ((int) labelArray[Index].getClientProperty(PLACE) > -1 || tiroDado == 1 || tiroDado == 6) {
             if (isMoving) { // Condicion: Si una canica se esta moviendo, no puede iniciar.
-                Acciones.mostrarTextoTemporal(MARBLE_IS_MOVING.get(), 2500, Acciones.rojo);
+                Acciones.mostrarTextoTemporal(MARBLE_IS_MOVING.toString(), 2500, Acciones.rojo);
                 return;
             }
             CountDownLatch latch = new CountDownLatch(1);
@@ -289,8 +211,8 @@ public class Tableros extends javax.swing.JPanel {
                 int place = (int) labelArray[Index].getClientProperty(PLACE);
                 int value = place + tiroDado + (int) labelArray[Index].getClientProperty(POSITIONS);
                 labelArray[Index].putClientProperty(PLACE, place + tiroDado);
-                labelArray[Index].putClientProperty(UBIETY, points[value]);
-                javax.swing.JLabel have = (javax.swing.JLabel) getComponentAt(points[value]);
+                labelArray[Index].putClientProperty(UBIETY, POINT.at(value));
+                javax.swing.JLabel have = (javax.swing.JLabel) getComponentAt(POINT.at(value));
                 if (have.getName() != null) {
                     Point old = (Point) have.getClientProperty(ORIGINAL);
                     Acciones.setNewLocation(have, have.getX(), have.getY(), old.x, old.y, 5, null);
@@ -299,7 +221,7 @@ public class Tableros extends javax.swing.JPanel {
                 }
 //                System.out.println("La canica se movera " + tiroDado + " posicion" + (tiroDado > 1 ? "es" : "") + ".\t\tA la posicion " + obtenerNumero(0, 0, -1, tiroDado));
 //                System.out.println("Place=" + labelArray[Index].getClientProperty(PLACE) + ", tiroDado=" + tiroDado + ", Positions=" + (int) labelArray[Index].getClientProperty(POSITIONS) + ", Value=" + value);
-                Acciones.setNewLocation(labelArray[Index], labelArray[Index].getX(), labelArray[Index].getY(), points[value].x, points[value].y, 5, latch);
+                Acciones.setNewLocation(labelArray[Index], labelArray[Index].getX(), labelArray[Index].getY(), POINT.at(value).x, POINT.at(value).y, 5, latch);
                 try {
                     latch.await();
                 } catch (InterruptedException ex) {
@@ -312,7 +234,7 @@ public class Tableros extends javax.swing.JPanel {
             });
             movementThread.start();
         } else {
-            Acciones.mostrarTextoTemporal(CANNOT_LEAVE.get() + tiroDado, 3000, Acciones.rojo);
+            Acciones.mostrarTextoTemporal(CANNOT_LEAVE.toString() + tiroDado, 3000, Acciones.rojo);
         }
     }
 
@@ -326,9 +248,9 @@ public class Tableros extends javax.swing.JPanel {
      * @return Numero de posiciones que podra avanzar.
      */
     private int startIconTransition(JLabel Label, int Delay, CountDownLatch latch) {
-        int dev = Acciones.getRand(1, 7, 'T'); // Último ícono fijo
+        int dev = Acciones.getRand(1, 7); // Último ícono fijo
         int one = Acciones.getRand(1, 7, 'R', dev);
-        int two = Acciones.getRand(1, 7, 'S', new int[]{dev, one});
+        int two = Acciones.getRand(1, 7, 'T', new int[]{dev, one});
         Icon[] icons = new Icon[]{
             Label.getIcon(), Acciones.getIconAt(one),
             Acciones.getIconAt(two), Acciones.getIconAt(dev)

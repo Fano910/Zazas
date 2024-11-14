@@ -10,33 +10,25 @@ import zamain.Creator;
  */
 public class Show extends javax.swing.JDialog {
 
-    private final Creator padre;
-    private int xMouse, yMouse;
-    private final int ID_Turn;
-//    private final double CantIni, CantVend;
-//    private final ArrayList<Object> lista;
+    private int xMouse, yMouse, suma = 0;
+    private final short[] points = {8, 4, 5, 2, 10, 7, 1, 10, 8, 6, 9, 5, 3, 10, 2, 6, 8, 5, 9, 3, 5, 4, 9, 4, 3, 6, 2, 3, 7, 1};
+    private final Tableros Padre;
 
     /**
      * Creates new form Principal
      *
+     * @param Modal
      * @param Padre
-     * @param ID_TurnoPend
      */
-    public Show(Creator Padre, int ID_TurnoPend) {
-        super(Padre, "Elección", true);
-        this.padre = Padre;
-        this.ID_Turn = ID_TurnoPend;
+    public Show(Creator Modal, Tableros Padre) {
+        super(Modal, "Elección", true);
+        this.Padre = Padre;
         initComponents();
         ToolTipManager.sharedInstance().setInitialDelay(0);
-//        lista = CConexion.findTurnoPendiente(ID_Turn);
-//        Ingreso.showInfo(lista.toString());
-//        CantIni = (double) lista.get(0);
-//        CantVend = (double) lista.get(1);
-//        txt_$_Ini.setText("Iniciaste con $" + Acciones.formatAsPrice(CantIni));
-//        txt_$_Gan.setText("Vendiste $" + Acciones.formatAsPrice(CantVend));
-//        txt_$_Tot.setText("Entregas $" + Acciones.formatAsPrice((CantIni + CantVend)));
-//        txt_Initial.setText("Hay un turno del " + (String) lista.get(4) + " a las " + (String) lista.get(3) + ", ¿Como deseas proceder?");
-//        areaDescrip.setText((String) lista.get(2));
+        txtSMS.setText(Data.ALERTS.SMS.getRandomOf());
+        suma = points[Acciones.getRand(0, 30)];
+        btnSimon.setText("Si, +" + suma + " puntos");
+        System.out.println(Data.MARBLE.CANNOT_LEAVE.toString());
     }
 
     @SuppressWarnings("unchecked")
@@ -45,20 +37,19 @@ public class Show extends javax.swing.JDialog {
 
         ALL = new javax.swing.JPanel();
         Desliz = new javax.swing.JPanel();
-        txt_Initial = new javax.swing.JLabel();
-        scrollDescrip = new javax.swing.JScrollPane();
-        areaDescrip = new javax.swing.JTextArea();
-        lbl_TurnOff = new javax.swing.JLabel();
-        txt_$_Ini = new javax.swing.JLabel();
-        txt_$_Gan = new javax.swing.JLabel();
-        txt_$_Tot = new javax.swing.JLabel();
-        btnCont = new javax.swing.JButton();
-        btnNew = new javax.swing.JButton();
+        btnSimon = new javax.swing.JButton();
+        btnNel = new javax.swing.JButton();
+        txtSMS = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
 
         ALL.setBackground(new java.awt.Color(247, 247, 247));
         ALL.setMinimumSize(new java.awt.Dimension(610, 377));
@@ -98,105 +89,66 @@ public class Show extends javax.swing.JDialog {
         ALL.add(Desliz);
         Desliz.setBounds(0, 0, 610, 30);
 
-        txt_Initial.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        txt_Initial.setForeground(new java.awt.Color(0, 0, 0));
-        txt_Initial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txt_Initial.setText("Hay un turno pendiente, ¿Como deseas proceder?");
-        ALL.add(txt_Initial);
-        txt_Initial.setBounds(0, 30, 610, 30);
-
-        scrollDescrip.setBackground(new java.awt.Color(255, 255, 255));
-        scrollDescrip.setForeground(new java.awt.Color(0, 0, 0));
-
-        areaDescrip.setColumns(20);
-        areaDescrip.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        areaDescrip.setRows(5);
-        areaDescrip.setText("Cerrar Turno :: Finalizas el dia y entregas cuentas.\n\nGuardar Turno :: Cierras sesión para\n\tcontinuar en otro momento.");
-        areaDescrip.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                areaDescripKeyPressed(evt);
-            }
-        });
-        scrollDescrip.setViewportView(areaDescrip);
-
-        ALL.add(scrollDescrip);
-        scrollDescrip.setBounds(30, 70, 350, 110);
-
-        lbl_TurnOff.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_TurnOff.setIcon(null/**Acciones.iconTurnOff**/);
-        lbl_TurnOff.setText("lbl_TurnOff");
-        ALL.add(lbl_TurnOff);
-        lbl_TurnOff.setBounds(430, 70, 130, 130);
-
-        txt_$_Ini.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        txt_$_Ini.setForeground(new java.awt.Color(0, 0, 0));
-        txt_$_Ini.setText("--------------------------------");
-        ALL.add(txt_$_Ini);
-        txt_$_Ini.setBounds(30, 200, 260, 30);
-
-        txt_$_Gan.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        txt_$_Gan.setForeground(new java.awt.Color(0, 0, 0));
-        txt_$_Gan.setText("--------------------------------");
-        ALL.add(txt_$_Gan);
-        txt_$_Gan.setBounds(30, 230, 260, 30);
-
-        txt_$_Tot.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        txt_$_Tot.setForeground(new java.awt.Color(0, 0, 0));
-        txt_$_Tot.setText("--------------------------------");
-        ALL.add(txt_$_Tot);
-        txt_$_Tot.setBounds(30, 260, 260, 30);
-
-        btnCont.setBackground(new java.awt.Color(255, 255, 255));
-        btnCont.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        btnCont.setForeground(new java.awt.Color(0, 0, 0));
-        btnCont.setIcon(Acciones.iconF1);
-        btnCont.setText("Continuar Turno");
-        btnCont.setBorder(null);
-        btnCont.setContentAreaFilled(false);
-        btnCont.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCont.setFocusable(false);
-        btnCont.setOpaque(true);
-        btnCont.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSimon.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        btnSimon.setIcon(Acciones.iconF1);
+        btnSimon.setText("Si");
+        btnSimon.setBorder(null);
+        btnSimon.setContentAreaFilled(false);
+        btnSimon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSimon.setFocusable(false);
+        btnSimon.setOpaque(true);
+        btnSimon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnContMouseEntered(evt);
+                btnSimonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnContMouseExited(evt);
+                btnSimonMouseExited(evt);
             }
         });
-        btnCont.addActionListener(new java.awt.event.ActionListener() {
+        btnSimon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnContActionPerformed(evt);
+                btnSimonActionPerformed(evt);
             }
         });
-        ALL.add(btnCont);
-        btnCont.setBounds(30, 320, 250, 30);
+        ALL.add(btnSimon);
+        btnSimon.setBounds(30, 330, 250, 30);
 
-        btnNew.setBackground(new java.awt.Color(255, 255, 255));
-        btnNew.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        btnNew.setForeground(new java.awt.Color(0, 0, 0));
-        btnNew.setIcon(Acciones.iconF2);
-        btnNew.setText("Nuevo Turno");
-        btnNew.setBorder(null);
-        btnNew.setContentAreaFilled(false);
-        btnNew.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNew.setFocusable(false);
-        btnNew.setOpaque(true);
-        btnNew.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnNel.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        btnNel.setIcon(Acciones.iconF2);
+        btnNel.setText("No");
+        btnNel.setBorder(null);
+        btnNel.setContentAreaFilled(false);
+        btnNel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNel.setFocusable(false);
+        btnNel.setOpaque(true);
+        btnNel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnNewMouseEntered(evt);
+                btnNelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnNewMouseExited(evt);
+                btnNelMouseExited(evt);
             }
         });
-        btnNew.addActionListener(new java.awt.event.ActionListener() {
+        btnNel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewActionPerformed(evt);
+                btnNelActionPerformed(evt);
             }
         });
-        ALL.add(btnNew);
-        btnNew.setBounds(330, 320, 250, 30);
+        ALL.add(btnNel);
+        btnNel.setBounds(330, 330, 250, 30);
+
+        txtSMS.setEditable(false);
+        txtSMS.setColumns(20);
+        txtSMS.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 36)); // NOI18N
+        txtSMS.setForeground(new java.awt.Color(70, 180, 0));
+        txtSMS.setRows(5);
+        txtSMS.setBorder(null);
+        txtSMS.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtSMS.setFocusable(false);
+        txtSMS.setOpaque(false);
+        txtSMS.setRequestFocusEnabled(false);
+        ALL.add(txtSMS);
+        txtSMS.setBounds(10, 40, 590, 270);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -227,64 +179,65 @@ public class Show extends javax.swing.JDialog {
 
     }//GEN-LAST:event_DeslizMouseClicked
 
-    private void btnNewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewMouseEntered
-        btnNew.setBackground(Acciones.azulClaro);
-    }//GEN-LAST:event_btnNewMouseEntered
+    private void btnNelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNelMouseEntered
+        btnNel.setBackground(Acciones.azulClaro);
+    }//GEN-LAST:event_btnNelMouseEntered
 
-    private void btnNewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewMouseExited
-        btnNew.setBackground(Acciones.blanco);
-    }//GEN-LAST:event_btnNewMouseExited
+    private void btnNelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNelMouseExited
+        btnNel.setBackground(Acciones.blanco);
+    }//GEN-LAST:event_btnNelMouseExited
 
-    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+    private void btnNelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNelActionPerformed
         f2();
-    }//GEN-LAST:event_btnNewActionPerformed
+    }//GEN-LAST:event_btnNelActionPerformed
 
-    private void btnContMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContMouseEntered
-        btnCont.setBackground(Acciones.azulClaro);
-    }//GEN-LAST:event_btnContMouseEntered
+    private void btnSimonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimonMouseEntered
+        btnSimon.setBackground(Acciones.azulClaro);
+    }//GEN-LAST:event_btnSimonMouseEntered
 
-    private void btnContMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContMouseExited
-        btnCont.setBackground(Acciones.blanco);
-    }//GEN-LAST:event_btnContMouseExited
+    private void btnSimonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimonMouseExited
+        btnSimon.setBackground(Acciones.blanco);
+    }//GEN-LAST:event_btnSimonMouseExited
 
-    private void btnContActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContActionPerformed
+    private void btnSimonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimonActionPerformed
         f1();
-    }//GEN-LAST:event_btnContActionPerformed
+    }//GEN-LAST:event_btnSimonActionPerformed
 
-    private void f1() {
-//        Acciones.dayOfTurn = Integer.parseInt((lista.get(4) + "").substring(8, 10));
-//        Acciones.setVentasInicio(CantIni);
-//        Acciones.setVentasTotales(CantVend);
-        this.dispose();
-    }
-
-    private void f2() {
-//        Acciones.dayOfTurn = Integer.parseInt(Acciones.timeDateString(false).substring(8, 10));
-//        CConexion.forzeCloseTurn(ID_Turn);
-//        CConexion.newTurn(Acciones.id_EMPLEADO, Acciones.getVentasInicio());
-        this.dispose();
-    }
-
-    private void areaDescripKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_areaDescripKeyPressed
-        switch (evt.getKeyCode()) {
-            case 112 ->
-                f1();
-            case 113 ->
-                f2();
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        if (evt.getKeyCode() == 112) { // 27 -> scape
+            f1();
+        } else if (evt.getKeyCode() == 113) {
+            f2();
         }
-    }//GEN-LAST:event_areaDescripKeyPressed
+    }//GEN-LAST:event_formKeyReleased
+
+    private void f1() { // Simon
+        Padre.setPoints(suma);
+        int deep = switch (suma) {
+            case 1, 2, 3 ->
+                1;
+            case 4, 5, 6 ->
+                2;
+            case 7, 8 ->
+                3;
+            case 9, 10 ->
+                4;
+            default ->
+                0;
+        };
+        Padre.plus(deep, 1);
+        f2();
+    }
+
+    private void f2() { // Nel
+        this.dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ALL;
     private javax.swing.JPanel Desliz;
-    private javax.swing.JTextArea areaDescrip;
-    private javax.swing.JButton btnCont;
-    private javax.swing.JButton btnNew;
-    private javax.swing.JLabel lbl_TurnOff;
-    private javax.swing.JScrollPane scrollDescrip;
-    private javax.swing.JLabel txt_$_Gan;
-    private javax.swing.JLabel txt_$_Ini;
-    private javax.swing.JLabel txt_$_Tot;
-    private javax.swing.JLabel txt_Initial;
+    private javax.swing.JButton btnNel;
+    private javax.swing.JButton btnSimon;
+    private javax.swing.JTextArea txtSMS;
     // End of variables declaration//GEN-END:variables
 }

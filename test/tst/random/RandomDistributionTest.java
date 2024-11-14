@@ -13,6 +13,10 @@ import java.util.concurrent.CountDownLatch;
  */
 public class RandomDistributionTest {
 
+    private static final Random r = new Random();
+    private static final ThreadLocalRandom tlr = ThreadLocalRandom.current();
+    private static final SecureRandom sr = new SecureRandom();
+
     // Generar números aleatorios y contar su frecuencia en el rango de 1 a 100
     private static Map<Integer, Integer> generateRandomNumbers(int n, char generatorType) {
         Map<Integer, Integer> frequencyMap = new HashMap<>();
@@ -22,13 +26,12 @@ public class RandomDistributionTest {
         }
 
         for (int i = 0; i < n; i++) {
-            int randomNumber = 0;
-            switch (generatorType) {
-                case 'R' -> randomNumber = new Random().nextInt(100) + 1;
-                case 'T' -> randomNumber = ThreadLocalRandom.current().nextInt(1, 101);
-                case 'S' -> randomNumber = new SecureRandom().nextInt(100) + 1;
-                default -> throw new IllegalArgumentException("Tipo de generador desconocido");
-            }
+            int randomNumber = switch (generatorType) {
+                case 'R' -> r.nextInt(100) + 1;
+                case 'T' -> tlr.nextInt(1, 101);
+                case 'S' -> sr.nextInt(100) + 1;
+                default -> 0;
+            };
             frequencyMap.put(randomNumber, frequencyMap.get(randomNumber) + 1);
         }
 
@@ -47,7 +50,7 @@ public class RandomDistributionTest {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        int n = 10000; // Número de muestras
+        int n = 1000; // Número de muestras
         int expectedFrequency = n / 100; // Frecuencia esperada por número en el rango 1-100
 
         // Contadores para los métodos más uniformes
@@ -55,7 +58,7 @@ public class RandomDistributionTest {
         int threadLocalBestCount = 0;
         int secureRandomBestCount = 0;
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             // Sincronizador para iniciar al mismo tiempo
             CountDownLatch latch = new CountDownLatch(1);
             double[] chiResults = new double[3]; // Para almacenar los resultados de cada generador

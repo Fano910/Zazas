@@ -3,6 +3,7 @@ package zafno;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import zamain.Acciones;
+import zamain.Creator;
 
 /**
  *
@@ -11,6 +12,7 @@ import zamain.Acciones;
 public class Zazas extends javax.swing.JPanel {
 
     private int w = 1280, h = 690, numJugadores = 0;
+    protected int dificultad = 2;
     protected static String colores = ".BYRA.";
     private final String[] nombres = {"GuardianOriginal", "HeroeLegal", "ProtectorCreativo", "CazadorAutentico", "DefensorDigital", "ArtGuardian", "OriginalHero", "ValorProtector", "JustoDigital", "LegadoLegal", "AntiPirata", "ArteDefensor", "GuardianDeArte", "HonestoJugador", "CazaPiratas", "LegalWarrior", "DigitalProtector", "ProtegeValor", "AntiPirateria", "ArteProtector", "GuardianDeCodigo", "ProtegeOriginal", "GuardianDigital", "CazaFalsos", "ProtectorDeArte", "LegalDefender", "GuardianDeLegado", "HeroeDeCodigo", "DefensaDigital", "CazadorLegal", "OriginalProtector", "ProtectorHonesto", "ValorOriginal", "GuardianContraPiratas", "CodigoProtegido", "HonestoDigital", "AntiPirateo", "ProtectorDeLegado", "DigitalDefensor", "DefensorDeArte", "CazaPirateria", "ProtectorDelCodigo", "LegalGuardian", "CazadorDeFalsos", "DefensorCreativo", "GuardianHonesto", "DigitalCazaFalsos", "ArteLegal", "ProtectorDelArte", "GuardianDelCodigo", "ProtectorDelValor", "HeroeDelArte", "CazaPirata", "GuardianDeProteccion", "DefensorOriginal", "ProtectorJusto", "LegalOriginal", "DigitalCazador", "ValorCreativo", "ProtectorContraPiratas", "GuardianDeHonestidad", "CodigoLegal", "DigitalHeroe", "ProtectorDelLegado", "CazaFalsificaciones", "OriginalDefender", "ProtectorDelOriginal", "LegalCazador", "DigitalGuardian", "ProtectorDeHonestidad", "CazaPiratasOriginal", "DefensorDeLegado", "GuardianLegal", "AntiPirateriaHeroe", "ProtectorContraFalsos", "CazadorDeOriginales", "ArteProtegido", "ProtectorDeCodigo", "GuardianDeValor", "LegalProtector", "DigitalValor", "OriginalCazador", "ProtectorDeFalsificaciones", "CazaOriginal", "HeroeCreativo", "GuardianContraFalsos", "ProtectorLegal", "DefensorHonesto", "ArteGuardian", "ProtectorDeHonesto", "CazadorDeCodigo", "ValorOriginalHeroe", "GuardianCreativo", "LegalHeroe", "ProtectorDeArteLegal", "DefensorDelOriginal", "CazaPirataOriginal", "ProtectorCreativoDigital", "GuardianDePirateria", "ProtectorDeAutenticidad"};
     private final static char[] allColores = {'Y', 'W', 'T', 'S', 'R', 'm', 'P', 'O', 'M', 'V', 'D', 'G', 'C', 'A', 'B'};
@@ -32,12 +34,19 @@ public class Zazas extends javax.swing.JPanel {
         new JLabel("Vino           W", Acciones.iconCanicaVino, JLabel.CENTER),
         new JLabel("Amarillo       Y", Acciones.iconCanicaAmarilla, JLabel.CENTER)
     };
+    javax.swing.DefaultListModel<String> listSettingsModel = new javax.swing.DefaultListModel<>();
+    private final Creator modal;
+    private Tableros tab;
 
     /**
      * Creates new form Zazas
+     * @param Modal
      */
-    public Zazas() {
+    public Zazas(Creator Modal) {
+        this.modal = Modal;
         initComponents();
+        listSettings.setModel(listSettingsModel);
+        listSettingsModel.addElement("Dificultad=Baja");
     }
 
     @SuppressWarnings("unchecked")
@@ -46,13 +55,18 @@ public class Zazas extends javax.swing.JPanel {
 
         scrollAllGamers = new javax.swing.JScrollPane();
         panelAllGamers = new javax.swing.JPanel();
-        txtMirar = new javax.swing.JLabel();
         panelGamers = new javax.swing.JPanel();
         panelGamer = new javax.swing.JPanel();
         btnEntrar = new javax.swing.JButton();
         txtAniadir = new javax.swing.JLabel();
         btnDado = new javax.swing.JButton();
         lblDice = new javax.swing.JLabel();
+        panelSettings = new javax.swing.JPanel();
+        listSettings = new javax.swing.JList<>();
+        txtMirar = new javax.swing.JLabel();
+        lblSettings = new javax.swing.JLabel();
+        scrollSettings = new javax.swing.JScrollPane();
+        lblPuntos = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(247, 247, 247));
         addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -79,19 +93,6 @@ public class Zazas extends javax.swing.JPanel {
         add(scrollAllGamers);
         scrollAllGamers.setBounds(0, 0, 1280, 90);
         scrollAllGamers.setVisible(false);
-
-        txtMirar.setForeground(new java.awt.Color(0, 102, 204));
-        txtMirar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtMirar.setText("Ver Jugadores");
-        txtMirar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        txtMirar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                txtMirarMouseEntered(evt);
-            }
-        });
-        add(txtMirar);
-        txtMirar.setBounds(0, 0, 150, 16);
-        txtMirar.setVisible(false);
 
         panelGamers.setBackground(new java.awt.Color(255, 255, 255));
         panelGamers.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(187, 187, 187), 2, true), "Puedes añadir hasta 4 jugadores", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Agency FB", 2, 18), new java.awt.Color(80, 80, 80))); // NOI18N
@@ -140,7 +141,7 @@ public class Zazas extends javax.swing.JPanel {
             }
         });
         panelGamers.add(txtAniadir);
-        txtAniadir.setBounds(175, 610, 120, 16);
+        txtAniadir.setBounds(175, 615, 120, 16);
         txtMirar.setVisible(false);
 
         add(panelGamers);
@@ -171,6 +172,80 @@ public class Zazas extends javax.swing.JPanel {
         lblDice.setIcon(Acciones.iconDices);
         add(lblDice);
         lblDice.setBounds(40, 110, 70, 70);
+
+        panelSettings.setBackground(new java.awt.Color(247, 247, 247));
+        panelSettings.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        panelSettings.setLayout(null);
+
+        listSettings.setBackground(new java.awt.Color(255, 255, 255));
+        listSettings.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), "Ajustes:", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Agency FB", 2, 18), new java.awt.Color(80, 80, 80))); // NOI18N
+        listSettings.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        listSettings.setForeground(new java.awt.Color(0, 0, 0));
+        listSettings.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listSettings.setToolTipText("Click para modificar");
+        listSettings.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listSettings.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                listSettingsMouseExited(evt);
+            }
+        });
+        listSettings.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listSettingsValueChanged(evt);
+            }
+        });
+        panelSettings.add(listSettings);
+        listSettings.setBounds(10, 10, 110, 120);
+        listSettings.setVisible(false);
+
+        txtMirar.setForeground(new java.awt.Color(0, 102, 204));
+        txtMirar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtMirar.setIcon(Acciones.iconSee);
+        txtMirar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtMirar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtMirarMouseEntered(evt);
+            }
+        });
+        panelSettings.add(txtMirar);
+        txtMirar.setBounds(10, 10, 40, 40);
+        txtMirar.setVisible(false);
+
+        lblSettings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSettings.setIcon(Acciones.iconSetting);
+        lblSettings.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblSettingsMouseEntered(evt);
+            }
+        });
+        panelSettings.add(lblSettings);
+        lblSettings.setBounds(80, 10, 40, 40);
+
+        scrollSettings.setBackground(new java.awt.Color(255, 255, 255));
+        scrollSettings.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Ajustes", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Agency FB", 2, 18), new java.awt.Color(80, 80, 80))); // NOI18N
+        panelSettings.add(scrollSettings);
+        scrollSettings.setBounds(150, 40, 110, 90);
+        scrollSettings.setVisible(false);
+
+        lblPuntos.setBackground(new java.awt.Color(255, 255, 255));
+        lblPuntos.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
+        lblPuntos.setForeground(new java.awt.Color(0, 0, 0));
+        lblPuntos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPuntos.setText("00");
+        lblPuntos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), "Usar puntos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_BOTTOM, new java.awt.Font("Agency FB", 0, 14), new java.awt.Color(80, 80, 80)), "Puntos:", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Agency FB", 2, 18), new java.awt.Color(80, 80, 80))); // NOI18N
+        lblPuntos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblPuntos.setOpaque(true);
+        lblPuntos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPuntosMouseClicked(evt);
+            }
+        });
+        panelSettings.add(lblPuntos);
+        lblPuntos.setBounds(10, 50, 110, 80);
+
+        add(panelSettings);
+        panelSettings.setBounds(1145, 10, 130, 270);
+        panelSettings.setVisible(false);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtMirarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMirarMouseEntered
@@ -201,7 +276,8 @@ public class Zazas extends javax.swing.JPanel {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         if (numJugadores > 0) { // En esta seccion se puede elegir, a futuro, cual tablero usar.
-            Tableros tab = new Tableros(numJugadores, colores, this);
+            panelSettings.setVisible(true);
+            tab = new Tableros(numJugadores, colores, this, modal);
             add(tab);
             tab.setBounds((w / 2) - (h / 2), 0, h, h);
             // FALTA: Colocar los jugadores en panelAllGamers
@@ -209,6 +285,7 @@ public class Zazas extends javax.swing.JPanel {
             requestFocus();
             txtMirar.setVisible(true);
             btnDado.setIcon(Acciones.getIconOfTurno(colores.charAt(1)));
+            lblPuntos.setIcon(Acciones.getIconOfTurno(colores.charAt(1)));
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
@@ -223,6 +300,55 @@ public class Zazas extends javax.swing.JPanel {
     private void btnDadoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDadoMouseExited
         btnDado.setBackground(Acciones.blanco);
     }//GEN-LAST:event_btnDadoMouseExited
+
+    private void listSettingsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSettingsMouseExited
+        listSettings.setVisible(false);
+    }//GEN-LAST:event_listSettingsMouseExited
+
+    private void listSettingsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listSettingsValueChanged
+        int index = listSettings.getSelectedIndex();
+        if (!evt.getValueIsAdjusting() && index > -1) {
+//            String setting = listSettingsModel.getElementAt(index);
+//            System.out.println(index + " -> " + setting);
+            String data;
+            switch (index) {
+                case 0 -> {
+                    data = "Dificultad=" + (dificultad == 2 ? "Media" : (dificultad == 4 ? "Alta" : (dificultad == 8 ? "Baja" : "ERR")));
+                    dificultad = dificultad == 2 ? 4 : (dificultad == 4 ? 8 : 2);
+                }
+//             case 1, 2 -> {
+//                 boolean flag = (index == 1 ? list1 : list2);
+//                 listSettingsModel.setElementAt(setting.substring(0, setting.length() - 2) + (flag ? "No" : "Si"), index);
+//                 if (index == 1) list1 = !list1;
+//                 else list2 = !list2;
+//             }
+//             case 3 -> {
+//                 listSettingsModel.setElementAt(setting.substring(0, setting.length() - 2) + (list3 ? "No" : "Si"), index);
+//                 list3 = !list3;
+//             }
+                default ->
+                    data = "ERR=ListSettingsValChang";
+            }
+            listSettingsModel.setElementAt(data, index);
+            listSettings.setVisible(false);
+            listSettings.clearSelection();
+        }
+    }//GEN-LAST:event_listSettingsValueChanged
+
+    private void lblSettingsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSettingsMouseEntered
+        listSettings.setVisible(true);
+    }//GEN-LAST:event_lblSettingsMouseEntered
+
+    private void lblPuntosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPuntosMouseClicked
+        if (Tableros.isMoving) {
+            Acciones.mostrarTextoTemporal("No puedes usar puntos en este momento", 3000, Acciones.rojo);
+        } else {
+            Creator.txtMask.setVisible(true);
+            Comodines comodin = new Comodines(modal, tab);
+            comodin.setVisible(true);
+            Creator.txtMask.setVisible(false);
+        }
+    }//GEN-LAST:event_lblPuntosMouseClicked
 
     /**
      * Agrega una instancia de Gamer a panelGamer.
@@ -298,6 +424,11 @@ public class Zazas extends javax.swing.JPanel {
         }
     }
 
+    protected void showAlerts(int Player, Data.ALERTS Type) {
+        System.out.println(Type.name() + "=" + Type.getRandomOf());
+//        System.out.println(Data.ALERTS.APOYO.getRandomAlertOf());
+    }
+
     /**
      * Metodo inservible, resguardado para futuras mejoras.
      *
@@ -323,10 +454,15 @@ public class Zazas extends javax.swing.JPanel {
     protected static javax.swing.JButton btnDado;
     private javax.swing.JButton btnEntrar;
     protected static javax.swing.JLabel lblDice;
+    protected static javax.swing.JLabel lblPuntos;
+    private javax.swing.JLabel lblSettings;
+    private javax.swing.JList<String> listSettings;
     private javax.swing.JPanel panelAllGamers;
     private javax.swing.JPanel panelGamer;
     private javax.swing.JPanel panelGamers;
+    private javax.swing.JPanel panelSettings;
     private javax.swing.JScrollPane scrollAllGamers;
+    private javax.swing.JScrollPane scrollSettings;
     private javax.swing.JLabel txtAniadir;
     private javax.swing.JLabel txtMirar;
     // End of variables declaration//GEN-END:variables

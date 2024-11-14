@@ -41,7 +41,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-import static zafno.data.RAIZ;
+import static zafno.Data.SRC.*;
 
 /**
  *
@@ -117,37 +117,39 @@ public class Acciones {
 //    public static final ImageIcon iconCCRF = new ImageIcon(RAIZ.get() + "");
 //    public static final ImageIcon iconF1 = new ImageIcon(RAIZ.get() + "");
 //    public static final ImageIcon iconF2 = new ImageIcon(RAIZ.get() + "");
-    public static final ImageIcon iconServer = new ImageIcon(RAIZ.get() + "Images\\Server.png"); // Icono servidor
-    public static final ImageIcon iconClient = new ImageIcon(RAIZ.get() + "Images\\Client.png"); // Icono cliente
-    public static final ImageIcon iconTab_1 = new ImageIcon(RAIZ.get() + "Images\\Tablero_1.png"); // Icono Tablero 1
-    public static final ImageIcon iconFondo = new ImageIcon(RAIZ.get() + "Images\\Fondo1.jpg"); // Icono Tablero 1
-    public static final ImageIcon iconCancel = new ImageIcon(RAIZ.get() + "Images\\cancel.png");
-    public static final ImageIcon iconCanicaNegra = new ImageIcon(RAIZ.get() + "Images\\Marble\\Black.png");
-    public static final ImageIcon iconCanicaAzul = new ImageIcon(RAIZ.get() + "Images\\Marble\\Blue.png");
-    public static final ImageIcon iconCanicaCafe = new ImageIcon(RAIZ.get() + "Images\\Marble\\Brown.png");
-    public static final ImageIcon iconCanicaGuinda = new ImageIcon(RAIZ.get() + "Images\\Marble\\Cherry.png");
-    public static final ImageIcon iconCanicaDorada = new ImageIcon(RAIZ.get() + "Images\\Marble\\Gold.png");
-    public static final ImageIcon iconCanicaVerde = new ImageIcon(RAIZ.get() + "Images\\Marble\\Green.png");
-    public static final ImageIcon iconCanicaMexico = new ImageIcon(RAIZ.get() + "Images\\Marble\\Mexico.png");
-    public static final ImageIcon iconCanicaNaranja = new ImageIcon(RAIZ.get() + "Images\\Marble\\Orange.png");
-    public static final ImageIcon iconCanicaRosa = new ImageIcon(RAIZ.get() + "Images\\Marble\\Pink.png");
-    public static final ImageIcon iconCanicaMorada = new ImageIcon(RAIZ.get() + "Images\\Marble\\Purple.png");
-    public static final ImageIcon iconCanicaRoja = new ImageIcon(RAIZ.get() + "Images\\Marble\\Red.png");
-    public static final ImageIcon iconCanicaPlateada = new ImageIcon(RAIZ.get() + "Images\\Marble\\Silver.png");
-    public static final ImageIcon iconCanicaTurquesa = new ImageIcon(RAIZ.get() + "Images\\Marble\\Turquoise.png");
-    public static final ImageIcon iconCanicaVino = new ImageIcon(RAIZ.get() + "Images\\Marble\\Wine.png");
-    public static final ImageIcon iconCanicaAmarilla = new ImageIcon(RAIZ.get() + "Images\\Marble\\Yellow.png");
-    public static final ImageIcon iconDices = new ImageIcon(RAIZ.get() + "Images\\Dice\\Dices.png");
-    private static final ImageIcon iconDice1 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_1.png");
-    private static final ImageIcon iconDice2 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_2.png");
-    private static final ImageIcon iconDice3 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_3.png");
-    private static final ImageIcon iconDice4 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_4.png");
-    private static final ImageIcon iconDice5 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_5.png");
-    private static final ImageIcon iconDice6 = new ImageIcon(RAIZ.get() + "Images\\Dice\\1_6.png");
-    public static final ImageIcon iconF1 = new ImageIcon(RAIZ.get() + "Images\\F1.png");
-    public static final ImageIcon iconF2 = new ImageIcon(RAIZ.get() + "Images\\F2.png");
-    public static final ImageIcon iconCtrl = new ImageIcon(RAIZ.get() + "Images\\ctrl.png");
-    public static final ImageIcon iconCtrl_1 = new ImageIcon(RAIZ.get() + "Images\\ctrl1.png");
+    public static final ImageIcon iconServer = new ImageIcon(IMAGES + "Server.png"); // Icono servidor
+    public static final ImageIcon iconClient = new ImageIcon(IMAGES + "Client.png"); // Icono cliente
+    public static final ImageIcon iconTab_1 = new ImageIcon(IMAGES + "Tablero_1.png"); // Icono Tablero 1
+    public static final ImageIcon iconFondo = new ImageIcon(IMAGES + "Fondo1.jpg"); // Icono Tablero 1
+    public static final ImageIcon iconCancel = new ImageIcon(IMAGES + "cancel.png");
+    public static final ImageIcon iconF1 = new ImageIcon(IMAGES + "F1.png");
+    public static final ImageIcon iconF2 = new ImageIcon(IMAGES + "F2.png");
+    public static final ImageIcon iconCtrl = new ImageIcon(IMAGES + "ctrl.png");
+    public static final ImageIcon iconCtrl_1 = new ImageIcon(IMAGES + "ctrl1.png");
+    public static final ImageIcon iconSetting = new ImageIcon(IMAGES + "setting.png");
+    public static final ImageIcon iconSee = new ImageIcon(IMAGES + "eyeSee.png");
+    public static final ImageIcon iconCanicaNegra = new ImageIcon(MARBLES + "Black.png");
+    public static final ImageIcon iconCanicaAzul = new ImageIcon(MARBLES + "Blue.png");
+    public static final ImageIcon iconCanicaCafe = new ImageIcon(MARBLES + "Brown.png");
+    public static final ImageIcon iconCanicaGuinda = new ImageIcon(MARBLES + "Cherry.png");
+    public static final ImageIcon iconCanicaDorada = new ImageIcon(MARBLES + "Gold.png");
+    public static final ImageIcon iconCanicaVerde = new ImageIcon(MARBLES + "Green.png");
+    public static final ImageIcon iconCanicaMexico = new ImageIcon(MARBLES + "Mexico.png");
+    public static final ImageIcon iconCanicaNaranja = new ImageIcon(MARBLES + "Orange.png");
+    public static final ImageIcon iconCanicaRosa = new ImageIcon(MARBLES + "Pink.png");
+    public static final ImageIcon iconCanicaMorada = new ImageIcon(MARBLES + "Purple.png");
+    public static final ImageIcon iconCanicaRoja = new ImageIcon(MARBLES + "Red.png");
+    public static final ImageIcon iconCanicaPlateada = new ImageIcon(MARBLES + "Silver.png");
+    public static final ImageIcon iconCanicaTurquesa = new ImageIcon(MARBLES + "Turquoise.png");
+    public static final ImageIcon iconCanicaVino = new ImageIcon(MARBLES + "Wine.png");
+    public static final ImageIcon iconCanicaAmarilla = new ImageIcon(MARBLES + "Yellow.png");
+    public static final ImageIcon iconDices = new ImageIcon(DICES + "Dices.png");
+    private static final ImageIcon iconDice1 = new ImageIcon(DICES + "1_1.png");
+    private static final ImageIcon iconDice2 = new ImageIcon(DICES + "1_2.png");
+    private static final ImageIcon iconDice3 = new ImageIcon(DICES + "1_3.png");
+    private static final ImageIcon iconDice4 = new ImageIcon(DICES + "1_4.png");
+    private static final ImageIcon iconDice5 = new ImageIcon(DICES + "1_5.png");
+    private static final ImageIcon iconDice6 = new ImageIcon(DICES + "1_6.png");
 
     public static int dayOfTurn;
     public static String horaInicio;
@@ -248,7 +250,7 @@ public class Acciones {
     public static ImageIcon getQRCode(String data, int size) {
 //        try {
 //            QRCodeWriter writer = new QRCodeWriter();
-//            BitMatrix bitMatrix = writer.encode(data, BarcodeFormat.QR_CODE, size, size);
+//            BitMatrix bitMatrix = writer.encode(Data, BarcodeFormat.QR_CODE, size, size);
 //
 //            return new ImageIcon(MatrixToImageWriter.toBufferedImage(bitMatrix));
 //        } catch (WriterException e) {
@@ -258,7 +260,7 @@ public class Acciones {
     }
 
     public static void setScaledIcon(String Nombre, int W, int H, javax.swing.JLabel Label) {
-        ImageIcon imgICON = new ImageIcon(RAIZ.get() + "Images\\" + Nombre);
+        ImageIcon imgICON = new ImageIcon(IMAGES + Nombre);
         java.awt.Image imageICON = imgICON.getImage();
         java.awt.Image scaledImageICON = imageICON.getScaledInstance(W, H, java.awt.Image.SCALE_SMOOTH);
         ImageIcon scaledIconICON = new ImageIcon(scaledImageICON);
@@ -617,16 +619,58 @@ public class Acciones {
         return calendar;
     }
 
+    public static void animateTransition(javax.swing.JLabel Componente, String Datos) {
+        javax.swing.Timer animationTimer = new javax.swing.Timer(50, new java.awt.event.ActionListener() {
+            private float alpha = 1.0f;
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                alpha -= 0.1f;
+                if (alpha <= 0) {
+                    alpha = 0;
+                    Componente.setText(Datos);
+                }
+                Componente.setForeground(new java.awt.Color(0, 0, 0, alpha));
+                if (alpha <= 0) {
+                    ((javax.swing.Timer) e.getSource()).stop();
+                    fadeInNewNumber(Componente);
+                }
+            }
+        });
+        animationTimer.start();
+    }
+
+    private static void fadeInNewNumber(javax.swing.JLabel Componente) {
+        javax.swing.Timer fadeInTimer = new javax.swing.Timer(50, new java.awt.event.ActionListener() {
+            float alpha = 0.0f;
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                alpha += 0.1f;
+                if (alpha >= 1) {
+                    alpha = 1;
+                }
+                Componente.setForeground(new java.awt.Color(0, 0, 0, alpha));
+                if (alpha >= 1) {
+                    ((javax.swing.Timer) e.getSource()).stop();
+                }
+            }
+        });
+        fadeInTimer.start();
+    }
+
+    private static final java.util.Random random = new java.util.Random();
+    private static final java.util.concurrent.ThreadLocalRandom threadLocR = java.util.concurrent.ThreadLocalRandom.current();
+    private static final java.security.SecureRandom secureR = new java.security.SecureRandom();
     /**
      * Por ejemplo: {valIni = 0, valFin = 4}. El valor sera entre 0 y 3
      *
      * @param Inicio
      * @param Final
-     * @return Random simple en un intervalo.
+     * @return Random simple en un intervalo (by default=SecureRandom).
      */
     public static int getRand(int Inicio, int Final) {
-        java.util.Random rand = new java.util.Random();
-        return rand.nextInt(Inicio, Final);
+        return secureR.nextInt(Inicio, Final);
     }
 
     /**
@@ -659,13 +703,11 @@ public class Acciones {
     public static int getRand(int Inicio, int Final, char Type) {
         return switch (Type) {
             case 'R' ->
-                new java.util.Random().nextInt(Inicio, Final);
+                random.nextInt(Inicio, Final);
             case 'T' ->
-                java.util.concurrent.ThreadLocalRandom.current().nextInt(Inicio, Final);
-            case 'S' ->
-                new java.security.SecureRandom().nextInt(Inicio, Final);
+                threadLocR.nextInt(Inicio, Final);
             default ->
-                1;
+                getRand(Inicio, Final);
         };
     }
 

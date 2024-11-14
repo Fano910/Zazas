@@ -40,10 +40,10 @@ public class Creator extends javax.swing.JFrame {
         txtHora = new javax.swing.JLabel();
         txtDate = new javax.swing.JLabel();
         txtALERTA = new javax.swing.JTextArea();
+        txtMask = new javax.swing.JTextArea();
         panelAll = new javax.swing.JPanel();
         scrollComands = new javax.swing.JScrollPane();
         areaComands = new javax.swing.JTextArea();
-        txtMask = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -218,6 +218,21 @@ public class Creator extends javax.swing.JFrame {
         txtALERTA.setBounds(30, 250, 1220, 100);
         txtALERTA.setVisible(false);
 
+        txtMask.setEditable(false);
+        txtMask.setBackground(Acciones.opaco);
+        txtMask.setColumns(20);
+        txtMask.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 24)); // NOI18N
+        txtMask.setForeground(new java.awt.Color(70, 180, 0));
+        txtMask.setRows(5);
+        txtMask.setBorder(null);
+        txtMask.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtMask.setFocusable(false);
+        txtMask.setOpaque(false);
+        txtMask.setRequestFocusEnabled(false);
+        ALL.add(txtMask);
+        txtMask.setBounds(0, 30, 1280, 690);
+        txtMask.setVisible(false);
+
         panelAll.setBackground(new java.awt.Color(0, 0, 0));
         panelAll.setLayout(null);
 
@@ -236,21 +251,6 @@ public class Creator extends javax.swing.JFrame {
 
         ALL.add(panelAll);
         panelAll.setBounds(0, 30, 1280, 690);
-
-        txtMask.setEditable(false);
-        txtMask.setBackground(Acciones.opaco);
-        txtMask.setColumns(20);
-        txtMask.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 24)); // NOI18N
-        txtMask.setForeground(new java.awt.Color(70, 180, 0));
-        txtMask.setRows(5);
-        txtMask.setBorder(null);
-        txtMask.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        txtMask.setFocusable(false);
-        txtMask.setOpaque(false);
-        txtMask.setRequestFocusEnabled(false);
-        ALL.add(txtMask);
-        txtMask.setBounds(0, 30, 1280, 690);
-        txtMask.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -426,7 +426,7 @@ public class Creator extends javax.swing.JFrame {
                     case ".clsrvr" ->
                         clienServerArquitecture.setVisible(false);
                     case ".zzs" -> {
-                        Zazas zazas = new Zazas();
+                        Zazas zazas = new Zazas(this);
                         panelAll.add(zazas);
                         zazas.setSize(1280, 690);
                     }
