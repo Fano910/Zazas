@@ -1,5 +1,7 @@
 package zafno;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import zamain.Acciones;
@@ -10,9 +12,9 @@ import zamain.Creator;
  * @author leona
  */
 public class Zazas extends javax.swing.JPanel {
-
+    
     private int w = 1280, h = 690, numJugadores = 0;
-    protected int dificultad = 2;
+    protected int dificultad = 2, steep = 0;
     protected static String colores = ".BYRA.";
     private final String[] nombres = {"GuardianOriginal", "HeroeLegal", "ProtectorCreativo", "CazadorAutentico", "DefensorDigital", "ArtGuardian", "OriginalHero", "ValorProtector", "JustoDigital", "LegadoLegal", "AntiPirata", "ArteDefensor", "GuardianDeArte", "HonestoJugador", "CazaPiratas", "LegalWarrior", "DigitalProtector", "ProtegeValor", "AntiPirateria", "ArteProtector", "GuardianDeCodigo", "ProtegeOriginal", "GuardianDigital", "CazaFalsos", "ProtectorDeArte", "LegalDefender", "GuardianDeLegado", "HeroeDeCodigo", "DefensaDigital", "CazadorLegal", "OriginalProtector", "ProtectorHonesto", "ValorOriginal", "GuardianContraPiratas", "CodigoProtegido", "HonestoDigital", "AntiPirateo", "ProtectorDeLegado", "DigitalDefensor", "DefensorDeArte", "CazaPirateria", "ProtectorDelCodigo", "LegalGuardian", "CazadorDeFalsos", "DefensorCreativo", "GuardianHonesto", "DigitalCazaFalsos", "ArteLegal", "ProtectorDelArte", "GuardianDelCodigo", "ProtectorDelValor", "HeroeDelArte", "CazaPirata", "GuardianDeProteccion", "DefensorOriginal", "ProtectorJusto", "LegalOriginal", "DigitalCazador", "ValorCreativo", "ProtectorContraPiratas", "GuardianDeHonestidad", "CodigoLegal", "DigitalHeroe", "ProtectorDelLegado", "CazaFalsificaciones", "OriginalDefender", "ProtectorDelOriginal", "LegalCazador", "DigitalGuardian", "ProtectorDeHonestidad", "CazaPiratasOriginal", "DefensorDeLegado", "GuardianLegal", "AntiPirateriaHeroe", "ProtectorContraFalsos", "CazadorDeOriginales", "ArteProtegido", "ProtectorDeCodigo", "GuardianDeValor", "LegalProtector", "DigitalValor", "OriginalCazador", "ProtectorDeFalsificaciones", "CazaOriginal", "HeroeCreativo", "GuardianContraFalsos", "ProtectorLegal", "DefensorHonesto", "ArteGuardian", "ProtectorDeHonesto", "CazadorDeCodigo", "ValorOriginalHeroe", "GuardianCreativo", "LegalHeroe", "ProtectorDeArteLegal", "DefensorDelOriginal", "CazaPirataOriginal", "ProtectorCreativoDigital", "GuardianDePirateria", "ProtectorDeAutenticidad"};
     private final static char[] allColores = {'Y', 'W', 'T', 'S', 'R', 'm', 'P', 'O', 'M', 'V', 'D', 'G', 'C', 'A', 'B'};
@@ -40,6 +42,7 @@ public class Zazas extends javax.swing.JPanel {
 
     /**
      * Creates new form Zazas
+     *
      * @param Modal
      */
     public Zazas(Creator Modal) {
@@ -47,12 +50,18 @@ public class Zazas extends javax.swing.JPanel {
         initComponents();
         listSettings.setModel(listSettingsModel);
         listSettingsModel.addElement("Dificultad=Baja");
+        Acciones.playSound(Data.SRC.TRACKS + "Main.wav", true);
+        Acciones.setScaledIcon("Init/" + steep + ".png", lblSteep.getWidth(), lblSteep.getHeight(), lblSteep);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelInicio = new javax.swing.JPanel();
+        txtSteep = new javax.swing.JLabel();
+        btnSteep = new javax.swing.JButton();
+        lblSteep = new javax.swing.JLabel();
         scrollAllGamers = new javax.swing.JScrollPane();
         panelAllGamers = new javax.swing.JPanel();
         panelGamers = new javax.swing.JPanel();
@@ -77,6 +86,51 @@ public class Zazas extends javax.swing.JPanel {
             }
         });
         setLayout(null);
+
+        panelInicio.setBackground(new java.awt.Color(180, 183, 181));
+        panelInicio.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                panelInicioComponentResized(evt);
+            }
+        });
+        panelInicio.setLayout(null);
+
+        txtSteep.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        txtSteep.setForeground(new java.awt.Color(0, 0, 0));
+        txtSteep.setText("Esta es la ventana de inicio, familiarizate con ella.");
+        panelInicio.add(txtSteep);
+        txtSteep.setBounds(10, 10, 1110, 80);
+
+        btnSteep.setBackground(new java.awt.Color(255, 255, 255));
+        btnSteep.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        btnSteep.setForeground(new java.awt.Color(0, 0, 0));
+        btnSteep.setText("SIGUIENTE");
+        btnSteep.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnSteep.setContentAreaFilled(false);
+        btnSteep.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSteep.setFocusable(false);
+        btnSteep.setOpaque(true);
+        btnSteep.setPreferredSize(new java.awt.Dimension(120, 30));
+        btnSteep.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSteepMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSteepMouseExited(evt);
+            }
+        });
+        btnSteep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSteepActionPerformed(evt);
+            }
+        });
+        panelInicio.add(btnSteep);
+        btnSteep.setBounds(1150, 30, 100, 35);
+        panelInicio.add(lblSteep);
+        lblSteep.setBounds(83, 90, 1113, 600);
+
+        add(panelInicio);
+        panelInicio.setBounds(0, 0, 1280, 690);
 
         scrollAllGamers.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(javax.swing.UIManager.getDefaults().getColor("Actions.GreyInline"), 2, true), "Jugadores:", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Agency FB", 2, 18), new java.awt.Color(80, 80, 80))); // NOI18N
 
@@ -263,6 +317,9 @@ public class Zazas extends javax.swing.JPanel {
             setSize(width, height);
             w = width;
             h = height;
+            panelSettings.setLocation(w - 135, 10);
+            panelInicio.setSize(w, h);
+            txtSteep.setSize(w - 270, 80);
         }
     }//GEN-LAST:event_formAncestorResized
 
@@ -350,6 +407,61 @@ public class Zazas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_lblPuntosMouseClicked
 
+    private void btnSteepMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSteepMouseEntered
+        btnSteep.setBackground(Acciones.azulClaro);
+    }//GEN-LAST:event_btnSteepMouseEntered
+
+    private void btnSteepMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSteepMouseExited
+        btnSteep.setBackground(Acciones.blanco);
+    }//GEN-LAST:event_btnSteepMouseExited
+
+    private void btnSteepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSteepActionPerformed
+//        CountDownLatch latch = new CountDownLatch(1); // Crea un "latch" que permite sincronizar
+//        Thread moveThread = new Thread(() -> {
+//            Acciones.startIconTransition(Zazas.lblDice, 20, latch); // Pasa el "latch" al método de transición de iconos
+//        });
+//        moveThread.start();
+        steep++;
+        txtSteep.setText(switch (steep) {
+            case 1 ->
+                "Desde este botón puedes agregar hasta 4 jugadores.";
+            case 2 ->
+                "Puedes editar el color de la canica y su nombre si así lo deseas, tambien puedes eliminar al jugador.";
+            case 3 ->
+                "En esta seccion se encuentra el botón principal: \"Tirar\", tendrás que presionarlo para poder mover tu conjunto de canicas.";
+            case 4 ->
+                "En el cuadro de controles tendrás la posibilidad de cosultar los jugadores y cambiar los ajustes.";
+            case 5 ->
+                "También se encuentra el contador de puntos, los cuales se podrán utilizar dando click en el mismo contador.";
+            case 6 ->
+                "Tendrás la posibilidad de aumentar tus puntos cuando das click en el botón \"Tirar\", con la desventaja que puedes hacer lenta la experiencia de juego.";
+            case 7, 8, 9, 10 ->
+                "Puedes dar click en la barra superior para cambiar el tamaño de la ventana.";
+            case 11 ->
+                "Una vez que presionaste el botón \"Tirar\" y salio 1 ó 6, puedes mover cualquier canica que este remarcada con azul.";
+            case 12 ->
+                "Podrás ver como se desplaza la canica seleccionada a la casilla y como cambia el turno al siguiente jugador por su color.";
+            default ->
+                "QUE TE DIVIERTAS.";
+        });
+        Acciones.setScaledIcon("Init/" + steep + ".png", lblSteep.getWidth(), lblSteep.getHeight(), lblSteep);
+        if (steep >= 13) {
+            try {
+                btnSteep.setText("Finalizado");
+                btnSteep.setEnabled(false);
+                Thread.sleep(3000);
+                panelInicio.setVisible(false);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Zazas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnSteepActionPerformed
+
+    private void panelInicioComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelInicioComponentResized
+        lblSteep.setSize(evt.getComponent().getSize().width - 167, evt.getComponent().getSize().height - 90);
+        Acciones.setScaledIcon("Init/" + steep + ".png", lblSteep.getWidth(), lblSteep.getHeight(), lblSteep);
+    }//GEN-LAST:event_panelInicioComponentResized
+
     /**
      * Agrega una instancia de Gamer a panelGamer.
      */
@@ -394,7 +506,7 @@ public class Zazas extends javax.swing.JPanel {
     public static JLabel[] getDisponibles() {
         return getDisponibles(null);
     }
-
+    
     protected static JLabel[] getDisponibles(JLabel ID) {
         java.util.List<JLabel> disponibles = new java.util.ArrayList<>();
         for (int i = 0; i < allItems.length; i++) {
@@ -423,7 +535,7 @@ public class Zazas extends javax.swing.JPanel {
             }
         }
     }
-
+    
     protected void showAlerts(int Player, Data.ALERTS Type) {
         System.out.println(Type.name() + "=" + Type.getRandomOf());
 //        System.out.println(Data.ALERTS.APOYO.getRandomAlertOf());
@@ -443,27 +555,25 @@ public class Zazas extends javax.swing.JPanel {
         }
         return inicial + (posicion - inicial);
     }
-    /*int inicial = 0;
-    int fin = 14;
-    int posicion = 15;
-    int avance = 3;
 
-    int resultado = obtenerNumero(inicial, fin, posicion, avance);
-    System.out.println("El número en la nueva posición es: " + resultado);*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected static javax.swing.JButton btnDado;
     private javax.swing.JButton btnEntrar;
+    protected static javax.swing.JButton btnSteep;
     protected static javax.swing.JLabel lblDice;
     protected static javax.swing.JLabel lblPuntos;
     private javax.swing.JLabel lblSettings;
+    private javax.swing.JLabel lblSteep;
     private javax.swing.JList<String> listSettings;
     private javax.swing.JPanel panelAllGamers;
     private javax.swing.JPanel panelGamer;
     private javax.swing.JPanel panelGamers;
+    private javax.swing.JPanel panelInicio;
     private javax.swing.JPanel panelSettings;
     private javax.swing.JScrollPane scrollAllGamers;
     private javax.swing.JScrollPane scrollSettings;
     private javax.swing.JLabel txtAniadir;
     private javax.swing.JLabel txtMirar;
+    private javax.swing.JLabel txtSteep;
     // End of variables declaration//GEN-END:variables
 }

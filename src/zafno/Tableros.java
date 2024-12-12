@@ -47,16 +47,23 @@ public class Tableros extends javax.swing.JPanel {
             }
         });
         Zazas.btnDado.addActionListener((java.awt.event.ActionEvent evt) -> {
-            Padre.showAlerts(turno - 1, APOYO);
+            if (puntos[1][turno - 1] != 0 && puntos[1][turno - 1] == Acciones.getRand(0, puntos[1][turno - 1] + 1)) {
+                Padre.showAlerts(turno - 1, APOYO);
+            }
             if (Acciones.getRand(0, Padre.dificultad) == 1) {
+                Acciones.playSound(SRC.TRACKS + "Carta.wav", false);
                 Creator.txtMask.setVisible(true);
                 Show smsS = new Show(Modal, this);
                 smsS.setVisible(true);
                 Creator.txtMask.setVisible(false);
             }
-            Padre.showAlerts(turno - 1, CONSECUENCIA);
+            if (puntos[2][turno - 1] != 0 && puntos[2][turno - 1] == Acciones.getRand(0, puntos[2][turno - 1] + 1)) {
+                Padre.showAlerts(turno - 1, CONSECUENCIA);
+            }
+            if (puntos[3][turno - 1] != 0 && puntos[3][turno - 1] == Acciones.getRand(0, puntos[3][turno - 1] + 1)) {
+                Padre.showAlerts(turno, FALLA);
+            }
             startMarble(NumJugadores);
-            Padre.showAlerts(turno, FALLA);
         });
     }
 
@@ -140,7 +147,7 @@ public class Tableros extends javax.swing.JPanel {
 
     /**
      * Este es el metodo principal, se activa al presionar el boton: 'btnDado'.
-     * 
+     *
      * @param numJugadores
      */
     private void startMarble(int numJugadores) {
@@ -183,7 +190,7 @@ public class Tableros extends javax.swing.JPanel {
     protected void setPoints(int Suma) {
         puntos[0][turno - 1] += Suma;
         Acciones.animateTransition(Zazas.lblPuntos, "" + puntos[0][turno - 1]);
-//        System.out.println("puntosDeepToS" + java.util.Arrays.deepToString(puntos));
+        System.out.println("puntosDeepToS" + java.util.Arrays.deepToString(puntos));
     }
 
     protected void plus(int Deep, int Suma) {
@@ -233,6 +240,7 @@ public class Tableros extends javax.swing.JPanel {
                 //System.out.println("posicion[" + i + "]=" + posiciones[i]);
             });
             movementThread.start();
+            Acciones.playSound(SRC.TRACKS + "Marble.wav", false);
         } else {
             Acciones.mostrarTextoTemporal(CANNOT_LEAVE.toString() + tiroDado, 3000, Acciones.rojo);
         }

@@ -12,3 +12,4 @@
 *.jpg
 *.class
 *.form
+*.wav

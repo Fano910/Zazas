@@ -24,6 +24,9 @@ public class Creator extends javax.swing.JFrame {
         panelAll.add(clienServerArquitecture);
         clienServerArquitecture.setSize(1280, 690);
         clienServerArquitecture.setVisible(false);
+        Zazas zazas = new Zazas(this);
+        panelAll.add(zazas);
+        zazas.setSize(1280, 690);
     }
 
     @SuppressWarnings("unchecked")
@@ -430,7 +433,7 @@ public class Creator extends javax.swing.JFrame {
                         panelAll.add(zazas);
                         zazas.setSize(1280, 690);
                     }
-                    case ".zrs" ->{
+                    case ".zrs" -> {
                         Comparador zores = new Comparador();
                         panelAll.add(zores);
                         zores.setSize(1280, 690);
@@ -439,20 +442,20 @@ public class Creator extends javax.swing.JFrame {
                         scrollComands.setVisible(true);
                     case ".exit" ->
                         scrollComands.setVisible(false);
-    //                case ".scktServer" -> {
-    //                    server.startServer();
-    //                    fieldCodigo.setText(".scktServerEnd");
-    //                }
-    //                case ".scktServerEnd" ->
-    //                    server.stopServer();
-    //                case ".scktClient" -> {
-    //                    client.startClient(javax.swing.JOptionPane.showInputDialog(null, "En caso de tener la IP\nescribela a continuación:", "", 3), "Maquina de guerra");
-    //                    fieldCodigo.setText(".scktClientEnd");
-    //                }
-    //                case ".scktClientEnd" ->
-    //                    client.stopClient();
-    //                case ".wrtURL" ->
-    //                    txtURL.setText(server.getServerIP()+ ":" + Server.getPORT());
+                    //                case ".scktServer" -> {
+                    //                    server.startServer();
+                    //                    fieldCodigo.setText(".scktServerEnd");
+                    //                }
+                    //                case ".scktServerEnd" ->
+                    //                    server.stopServer();
+                    //                case ".scktClient" -> {
+                    //                    client.startClient(javax.swing.JOptionPane.showInputDialog(null, "En caso de tener la IP\nescribela a continuación:", "", 3), "Maquina de guerra");
+                    //                    fieldCodigo.setText(".scktClientEnd");
+                    //                }
+                    //                case ".scktClientEnd" ->
+                    //                    client.stopClient();
+                    //                case ".wrtURL" ->
+                    //                    txtURL.setText(server.getServerIP()+ ":" + Server.getPORT());
                     case ".wrtHW" ->
                         txtDate.setText("Hola mundo.");
                     default ->

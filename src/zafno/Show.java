@@ -28,7 +28,6 @@ public class Show extends javax.swing.JDialog {
         txtSMS.setText(Data.ALERTS.SMS.getRandomOf());
         suma = points[Acciones.getRand(0, 30)];
         btnSimon.setText("Si, +" + suma + " puntos");
-        System.out.println(Data.MARBLE.CANNOT_LEAVE.toString());
     }
 
     @SuppressWarnings("unchecked")
@@ -214,11 +213,9 @@ public class Show extends javax.swing.JDialog {
     private void f1() { // Simon
         Padre.setPoints(suma);
         int deep = switch (suma) {
-            case 1, 2, 3 ->
-                1;
-            case 4, 5, 6 ->
+            case 1, 2, 3, 4, 5 ->
                 2;
-            case 7, 8 ->
+            case 6, 7, 8 ->
                 3;
             case 9, 10 ->
                 4;
@@ -226,10 +223,11 @@ public class Show extends javax.swing.JDialog {
                 0;
         };
         Padre.plus(deep, 1);
-        f2();
+        this.dispose();
     }
 
     private void f2() { // Nel
+        Padre.plus(1, suma);
         this.dispose();
     }
 

@@ -1,7 +1,10 @@
 package zafno;
 
 import java.awt.Point;
+import java.io.File;
+import java.net.URISyntaxException;
 import zamain.Acciones;
+import zamain.Creator;
 
 /**
  *
@@ -35,36 +38,38 @@ public enum Data {
          *
          * @see "Aún no puedes moverte de la zona segura."
          */
-        CANNOT_MOVE("Aún no puedes moverte de la zona segura."),
+        CANNOT_MOVE("Aún no puedes moverte de la zona segura.", "CANNOT_MOVE"),
         /**
          * Mensaje para cuando no has movido el dado.
          *
          * @see "Aún no has movido el dado."
          */
-        MOVE_DICE("Aún no has movido el dado."),
+        MOVE_DICE("Aún no has movido el dado.", "MOVE_DICE"),
         /**
          * Mensaje para cuando una canica está en movimiento.
          *
          * @see "Ya hay una canica en movimiento"
          */
-        MARBLE_IS_MOVING("Ya hay una canica en movimiento"),
+        MARBLE_IS_MOVING("Ya hay una canica en movimiento", "MARBLE_IS_MOVING"),
         /**
          * Mensaje para cuando la canica no pertenece al jugador.
          *
          * @see "Esta canica no forma parte de tu colección."
          */
-        NOT_OWNER_MARBLE("Esta canica no forma parte de tu colección."),
+        NOT_OWNER_MARBLE("Esta canica no forma parte de tu colección.", "NOT_OWNER_MARBLE"),
         /**
          * Mensaje para cuando no puedes salir del área segura con cierto valor.
          *
          * @see "No puedes salir del área segura con: "
          */
-        CANNOT_LEAVE("No puedes salir del área segura con: ");
+        CANNOT_LEAVE("No puedes salir del área segura con: ", "CANNOT_LEAVE");
 
         private final String texto;
+        private final String type;
 
-        MARBLE(String Texto) {
+        MARBLE(String Texto, String N) {
             this.texto = Texto;
+            this.type = N;
         }
 
         /**
@@ -74,27 +79,44 @@ public enum Data {
          */
         @Override
         public String toString() {
+            Acciones.playSound(SRC.TRACKS + "Marble/" + type + ".wav", false);
             return texto;
         }
     }
 
     public enum SRC {
         /**
-         * @see ".\\src\\data\\"
+         * @see "Este es un documento de datos necesarios para el funcionamiento
+         * del programa. Cualquier modificación se vera reflejada en el mal
+         * funcionamiento del mismo.<p>
+         * INFO DATA. by FNO"
          */
-        RAIZ(".\\src\\data\\"),
+        INFO("Este es un documento de datos necesarios para el\nfuncionamiento del programa. Cualquier modificación\nse vera reflejada en el mal funcionamiento del mismo.\r\r\tINFO DATA. by FNO\n"),
         /**
-         * <strong>Returns: </strong><li>{@link RAIZ} + Images\\
+         * @see "./src/data/"
          */
-        IMAGES(RAIZ + "Images\\"),
+        RAIZ("C:/Zazas/dist/data/"),
+        //RAIZ("./src/data/"),
         /**
-         * <strong>Returns: </strong><li>{@link IMAGES} + Marble\\
+         * <strong>Returns: </strong><li>{@link RAIZ} + Tracks/
          */
-        MARBLES(IMAGES + "Marble\\"),
+        TRACKS(RAIZ + "Tracks/"),
         /**
-         * <strong>Returns: </strong><li>{@link IMAGES} + Dice\\
+         * <strong>Returns: </strong><li>{@link RAIZ} + Images/
          */
-        DICES(IMAGES + "Dice\\");
+        IMAGES(RAIZ + "Images/"),
+        /**
+         * <strong>Returns: </strong><li>{@link RAIZ} + MacroData.fno
+         */
+        MACRO_DATA(RAIZ + "MacroData.fno"),
+        /**
+         * <strong>Returns: </strong><li>{@link IMAGES} + Marble/
+         */
+        MARBLES(IMAGES + "Marble/"),
+        /**
+         * <strong>Returns: </strong><li>{@link IMAGES} + Dice/
+         */
+        DICES(IMAGES + "Dice/");
         private final String path;
 
         SRC(String Path) {
@@ -113,6 +135,7 @@ public enum Data {
         public static Point at(int n) {
             return points[n];
         }
+
         public static void set() {
             points[4].y = 3;
         }
@@ -220,7 +243,7 @@ public enum Data {
     /**
      * Categoría de alertas para concientizar sobre la piratería en el juego. Se
      * presentan en diferentes tipos de alertas: textos suaves, ventanas
-     * emergentes molestas, y mensajes inspiradores, dependiendo de la elección
+     * emergentes molestas y mensajes inspiradores, dependiendo de la elección
      * del jugador.
      */
     public enum ALERTS {
@@ -320,7 +343,9 @@ public enum Data {
          * @return Mensaje aleatorio de la constante.
          */
         public String getRandomOf() {
-            return deepAlertsArray[n][Acciones.getRand(0, (n > 0 ? 30 : 5))];
+            int rand = Acciones.getRand(0, (n > 0 ? 30 : 5));
+            Acciones.addTrackToQueue(SRC.TRACKS + "Alerts/" + n + "/" + rand + ".wav");
+            return deepAlertsArray[n][rand];
         }
 
         private final String[][] deepAlertsArray = {{ // Inicia 0
@@ -416,35 +441,35 @@ public enum Data {
             "Descarga dañada: la calidad del juego se ha reducido.",
             "Tu seguridad está comprometida: ¡Actualiza a la versión original para protegerte!",
             "Pérdida de control del juego por instalación incorrecta."}, { // Inicia 4
-            "¿Estás buscando versiones\npremium sin costo?\n¡Encuentra aquí!",
-            "¿Quieres toda la música de\ntus artistas favoritos sin\npagar?",
-            "¿Te interesa descargar el\nnuevo lanzamiento de\nvideojuegos gratis?",
-            "¿Buscas juegos completos\ncon todos los niveles\ndesbloqueados sin pagar?",
-            "¿Quieres libros digitales\nde pago gratis en un solo\nclick?",
-            "¿Necesitas las últimas\npelículas en alta calidad\nsin costos adicionales?",
-            "¿Prefieres la versión\ngratuita de este software\npremium con crack?",
-            "¿Te gustaría descargar\naplicaciones exclusivas\nsin pagar ni un centavo?",
-            "¿Quieres toda la colección\nde software premium\ncompletamente gratis?",
-            "¿Te interesa desbloquear\ntodas las funciones sin\npagar nada extra?",
-            "¿Prefieres una alternativa\npirata en lugar de pagar el precio completo?",
-            "¿Quieres descargar series\ncompletas gratis y en un \nolo enlace?",
-            "¿Te interesa tener todo el\ncontenido sin costo alguno?",
-            "¿Buscas juegos sin\nrestricciones sin pagar un\ncentavo?",
-            "¿Quieres el paquete\ncompleto de esta app\npremium sin pagar?",
-            "¿Prefieres la opción\ngratis en lugar de comprar\noriginal?",
-            "¿Te gustaría acceder a la\n funciones avanzadas de\neste programa gratis?",
-            "¿Estás buscando licencias\npremium sin costo?",
-            "¿Te interesa todo el\nsoftware exclusivo a\nprecio de ganga?",
-            "¿Prefieres la versión\ncompleta por un precio\nmenor?",
-            "¿Buscas herramientas de\ndiseño premium sin pagar\nun solo peso?",
-            "¿Quieres obtener este\nsoftware sin costo de\nmanera rápida?",
-            "¿Buscas una alternativa\npirata para no gastar?",
-            "¿Prefieres contenido\npremium sin tener que\npagar por él?",
-            "¿Quieres disfrutar de este\nsoftware sin ningún gasto?",
-            "¿Buscas versiones full sin\npagar?",
-            "¿Te gustaría obtener todos\nlos beneficios sin costo?",
-            "¿Prefieres la opción\nbarata del mercado?",
-            "¿Quieres tener acceso\nilimitado sin pagar extra?",
-            "¿Buscas descuentos\nincreíbles o versiones\npirata sin costo?"}};
+            "¿Estás buscando versiones\npremium sin costo?\n¡Revisa estas opciones!",
+            "¿Te gustaría disfrutar de\nla música de tus artistas\nfavoritos sin complicaciones?",
+            "¿Quieres explorar el nuevo\nlanzamiento de videojuegos\nde manera accesible?",
+            "¿Buscas juegos completos\ncon niveles desbloqueados\ny sin restricciones?",
+            "¿Te interesan libros\ndigitales accesibles\ny fáciles de obtener?",
+            "¿Deseas ver las últimas\npelículas en alta calidad\nde forma sencilla?",
+            "¿Prefieres una opción\nalternativa para este\nsoftware premium?",
+            "¿Te gustaría probar\naplicaciones exclusivas\nde manera inmediata?",
+            "¿Quieres acceder a una\ncolección completa de\nsoftware premium fácilmente?",
+            "¿Te interesa desbloquear\ntodas las funciones sin\ncomplicaciones?",
+            "¿Buscas alternativas\neconómicas para contenido\npremium?",
+            "¿Quieres descargar series\ncompletas y acceder a ellas\nsin inconvenientes?",
+            "¿Te gustaría tener acceso\na todo el contenido que\nbuscas rápidamente?",
+            "¿Buscas juegos sin límites\ny listos para disfrutar\nde inmediato?",
+            "¿Quieres un paquete\ncompleto de esta app\ncon beneficios adicionales?",
+            "¿Prefieres opciones más\naccesibles para tus\nnecesidades de software?",
+            "¿Te gustaría aprovechar\ntodas las funciones avanzadas\nde este programa?",
+            "¿Estás buscando una\nforma de obtener licencias\npremium fácilmente?",
+            "¿Te interesa adquirir\nsoftware exclusivo a un\nprecio accesible?",
+            "¿Prefieres una versión\ncompleta a un costo\nmenor del habitual?",
+            "¿Buscas herramientas de\ndiseño premium sin\ncomplicaciones?",
+            "¿Quieres disfrutar de este\nsoftware de forma rápida\ny sin restricciones?",
+            "¿Buscas alternativas\neconómicas que te ofrezcan\ntodo lo que necesitas?",
+            "¿Prefieres contenido\npremium que se ajuste\nfácilmente a tus opciones?",
+            "¿Quieres disfrutar de este\nsoftware con todas sus\nventajas de manera sencilla?",
+            "¿Buscas versiones completas\nsin complicaciones\nadicionales?",
+            "¿Te gustaría obtener\nfunciones completas con\nbeneficios adicionales?",
+            "¿Prefieres opciones\nmás accesibles y convenientes\ndisponibles para ti?",
+            "¿Quieres tener acceso\na todo lo que necesitas\nde manera más flexible?",
+            "¿Buscas ofertas increíbles\no versiones más prácticas\nde contenido premium?"}};
     }
 }

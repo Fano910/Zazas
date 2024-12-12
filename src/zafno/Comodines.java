@@ -48,6 +48,7 @@ public class Comodines extends javax.swing.JDialog {
         lblClose = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
 

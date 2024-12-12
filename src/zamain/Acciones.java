@@ -29,6 +29,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.regex.Pattern;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -36,6 +38,11 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -76,7 +83,7 @@ public class Acciones {
             return new String(decryptedBytes);
         } catch (InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
             Creator.showInfo(e.getMessage());
-            return null;
+            return ".....UNKNOWN DATA.....\tPLEASE GO WITH FNO";
         }
     }
 
@@ -499,6 +506,54 @@ public class Acciones {
         }
     }
 
+    public static final Robot robots;
+
+    static {
+        Robot tempRobot = null;
+        try {
+            tempRobot = new Robot(); // Se lanza AWTException si no se puede crear
+        } catch (AWTException e) {
+            System.out.println("Error al inicializar el Robot: " + e.getMessage());
+        }
+        robots = tempRobot; // Asignación segura
+    }
+
+    protected static void clickOnScreenWait(int X, int Y, long TimeToWait) {
+        try {
+            robots.mouseMove(X, Y);
+            Thread.sleep(TimeToWait);
+            robots.mouseMove(X, Y);
+            robots.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+            robots.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        } catch (InterruptedException ex) {
+            System.out.println("ERR=clickOnScreeWait=" + ex);
+        }
+    }
+
+    // Método para escribir una cadena de números
+    protected static void writeNumbers(String CadenaNumeros) {
+        try {
+            for (int i = 0; i < CadenaNumeros.length(); i++) {
+                char caracter = CadenaNumeros.charAt(i);
+
+                // Verificar si el carácter es un dígito
+                if (Character.isDigit(caracter)) {
+                    int numero = caracter - '0'; // Convertir el carácter a su valor numérico
+
+                    // Simular la pulsación de la tecla correspondiente al número
+                    robots.keyPress(KeyEvent.VK_0 + numero); // Presionar la tecla
+                    robots.keyRelease(KeyEvent.VK_0 + numero); // Liberar la tecla
+
+                    // Retardo opcional entre cada pulsación de tecla
+                    Thread.sleep(50); // Puedes ajustar este tiempo
+                }
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Error al escribir la cadena de números: " + e.getMessage());
+            Thread.currentThread().interrupt(); // Restaurar el estado de interrupción
+        }
+    }
+
     public static void threeClicks() {
         try {
             Robot robot = new Robot();
@@ -662,6 +717,7 @@ public class Acciones {
     private static final java.util.Random random = new java.util.Random();
     private static final java.util.concurrent.ThreadLocalRandom threadLocR = java.util.concurrent.ThreadLocalRandom.current();
     private static final java.security.SecureRandom secureR = new java.security.SecureRandom();
+
     /**
      * Por ejemplo: {valIni = 0, valFin = 4}. El valor sera entre 0 y 3
      *
@@ -757,5 +813,119 @@ public class Acciones {
             }
         }
         return false;
+    }
+
+    public static void writeMacroFile(int XFocus, int YFocus, long Tiempo) {
+        File archivo = new File(MACRO_DATA.toString());
+        try {
+            String data = (archivo.exists() ? "" : INFO) + "%" + encrypt("x=" + XFocus + "y=" + YFocus + "t=" + Tiempo);
+            try (PrintWriter salida = new PrintWriter(new java.io.FileWriter(archivo, archivo.exists()))) {
+                salida.println(data);
+            }
+//            Creator.showInfo("Se ha escrito dentro del archivo: " + MACRO_DATA);
+        } catch (IOException ex) {
+//            Creator.showInfo("ERR=writeFocusFile:" + ex.toString());
+        }
+    }
+
+    public static java.util.ArrayList<String> readMacroFile() { // Leer
+        java.util.ArrayList<String> data = new java.util.ArrayList<>();
+        File archivo = new File(MACRO_DATA.toString());
+        String text = "";
+        try (BufferedReader entrada = new BufferedReader(new FileReader(archivo));) {
+            String lectura = entrada.readLine();
+            while (lectura != null) {
+                text += "\n" + lectura;
+                lectura = entrada.readLine();
+            }
+            entrada.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERR=readMacroFile:" + ex);
+        } catch (IOException ex) {
+            System.out.println("ERR=readMacroFile:" + ex);
+        }
+        String[] words = text.trim().split("\n");
+        if (words.length > 3) {
+            for (String word : words) {
+                if (word.startsWith("%")) {
+                    data.add(decrypt(word.substring(1)));
+                }
+            }
+//            Creator.showInfo("Se modificaron los archivos de configuración de manera no autorizada.");
+        } else {
+//            Creator.showInfo("Se eliminaron los archivos de configuración de manera no autorizada.");
+        }
+        return data;
+    }
+
+    private static final Queue<String> trackQueue = new LinkedList<>(); // Cola de pistas
+    private static Clip currentClip = null; // Clip en reproducción
+
+    /**
+     * Reproduce una pista de audio.
+     *
+     * @param path Ruta del archivo de audio.
+     * @param inLoop Indica si el audio debe reproducirse en bucle.
+     */
+    public static void playSound(String path, boolean inLoop) {
+        try {
+            File soundFile = new File(path);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.loop(inLoop ? -1 : 0);
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.err.println("Error al reproducir el sonido: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Agrega una pista a la cola para su reproducción secuencial.
+     *
+     * @param path Ruta del archivo de audio.
+     */
+    public static synchronized void addTrackToQueue(String path) {
+        trackQueue.offer(path); // Agrega la pista a la cola
+//        System.out.println("Se agrego a la cola=" + path + ", currentClip==null=" + (currentClip == null) + ", currentClip.isntRunning=" + !currentClip.isRunning());
+        if (currentClip == null || !currentClip.isRunning()) { // Verifica si no hay reproducción activa
+            if (currentClip != null) {
+                currentClip.close(); // Asegura que cualquier clip previo se cierre
+            }
+            playNextTrack(); // Inicia la reproducción de la siguiente pista
+        }
+    }
+
+    /**
+     * Reproduce la siguiente pista en la cola.
+     */
+    private static void playNextTrack() {
+        System.out.println("Se iniciara la reproducción=" + trackQueue.toString());
+        String nextTrack = trackQueue.poll(); // Obtiene la siguiente pista
+        if (nextTrack != null) {
+            System.out.println("Inicio");
+            try {
+                File soundFile = new File(nextTrack);
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+                currentClip = AudioSystem.getClip();
+                currentClip.open(audioStream);
+                currentClip.loop(0);
+                currentClip.start();
+
+                // Listener para cuando termine la pista
+                currentClip.addLineListener(event -> {
+                    if (event.getType() == javax.sound.sampled.LineEvent.Type.STOP) {
+                        currentClip.close();
+                        playNextTrack(); // Reproduce la siguiente pista
+                    }
+                });
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                System.err.println("Error al reproducir el sonido: " + e.getMessage());
+            }
+        } else {
+            System.out.println("NoInicio");
+            currentClip = null; // Si no hay más pistas, libera el clip actual
+        }
     }
 }

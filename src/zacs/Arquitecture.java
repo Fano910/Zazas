@@ -33,9 +33,9 @@ public class Arquitecture extends javax.swing.JFrame {
         Desliz = new javax.swing.JPanel();
         lbl_Version = new javax.swing.JLabel();
         fieldCodigo = new javax.swing.JTextField();
+        txtURL = new javax.swing.JLabel();
         txtHora = new javax.swing.JLabel();
         txtDate = new javax.swing.JLabel();
-        txtURL = new javax.swing.JLabel();
         txtALERTA = new javax.swing.JTextArea();
         panelAll = new javax.swing.JPanel();
         txtMirar = new javax.swing.JLabel();
@@ -185,6 +185,11 @@ public class Arquitecture extends javax.swing.JFrame {
         fieldCodigo.setBounds(100, 5, 100, 20);
         fieldCodigo.setVisible(false);
 
+        txtURL.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        txtURL.setForeground(new java.awt.Color(0, 0, 0));
+        Desliz.add(txtURL);
+        txtURL.setBounds(210, 5, 150, 20);
+
         txtHora.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         txtHora.setForeground(new java.awt.Color(0, 0, 0));
         txtHora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -200,11 +205,6 @@ public class Arquitecture extends javax.swing.JFrame {
         txtDate.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Desliz.add(txtDate);
         txtDate.setBounds(870, 0, 350, 29);
-
-        txtURL.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        txtURL.setForeground(new java.awt.Color(0, 0, 0));
-        Desliz.add(txtURL);
-        txtURL.setBounds(210, 5, 150, 20);
 
         ALL.add(Desliz);
         Desliz.setBounds(60, 0, 1220, 30);
